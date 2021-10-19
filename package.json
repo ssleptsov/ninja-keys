@@ -17,7 +17,7 @@
     "analyze": "cem analyze --litelement --globs \"src/**/*.ts\"",
     "analyze:watch": "cem analyze --litelement --globs \"src/**/*.ts\" --watch",
     "serve": "wds --root-dir=. --node-resolve --watch",
-    "demo": "tsc && rollup -c --file demo/ninja-keys.bundled.js && wds --root-dir=. --node-resolve --watch",
+    "demo": "tsc && rollup -c --file docs/ninja-keys.bundled.js && wds --root-dir=. --open=./docs/ --node-resolve --watch",
     "serve:prod": "MODE=prod npm run serve",
     "bundle": "npm run build && rollup -c --file dist/ninja-keys.bundled.js",
     "checksize": "rollup -c ; cat dist/ninja-keys.bundled.js | gzip -9 | wc -c ; rm dist/ninja-keys.bundled.js",
@@ -45,7 +45,7 @@
     "url": "git@github.com:ssleptsov/ninja-keys.git"
   },
   "clean-publish": {
-    "files": ["dev", "demo", "rollup.config.js", "web-dev-server.config.mjs"]
+    "files": ["dev", "docs", "rollup.config.js", "web-dev-server.config.mjs"]
   },
   "dependencies": {
     "@material/mwc-icon": "0.25.2",
