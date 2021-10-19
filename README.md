@@ -1,6 +1,6 @@
 # Ninja Keys
 
-Keyboard shorcuts interface for your website. Working with static HTML, Vanila JS, Vue, React.
+Keyboard shortcuts interface for your website. Working with static HTML, Vanilla JS, Vue, React.
 
 🚧 **Work in progress.** That's first shot for me using [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
 
