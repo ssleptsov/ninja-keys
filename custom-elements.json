@@ -1,0 +1,518 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/ninja-action.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "NinjaAction",
+          "members": [
+            {
+              "kind": "field",
+              "name": "action",
+              "type": {
+                "text": "INinjaAction"
+              },
+              "attribute": "action"
+            },
+            {
+              "kind": "field",
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "selected"
+            },
+            {
+              "kind": "method",
+              "name": "ensureInView",
+              "description": "Scroll to show element"
+            },
+            {
+              "kind": "method",
+              "name": "click"
+            }
+          ],
+          "events": [
+            {
+              "name": "actionsSelected",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "action",
+              "type": {
+                "text": "INinjaAction"
+              },
+              "fieldName": "action"
+            },
+            {
+              "name": "selected",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "selected"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "ninja-action",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NinjaAction",
+          "declaration": {
+            "name": "NinjaAction",
+            "module": "src/ninja-action.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ninja-action",
+          "declaration": {
+            "name": "NinjaAction",
+            "module": "src/ninja-action.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/ninja-header.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "NinjaHeader",
+          "members": [
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "breadcrumbHome",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Home'",
+              "attribute": "breadcrumbHome"
+            },
+            {
+              "kind": "field",
+              "name": "breadcrumbs",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "attribute": "breadcrumbs"
+            },
+            {
+              "kind": "field",
+              "name": "_inputRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "setSearch",
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "focusSearch"
+            },
+            {
+              "kind": "method",
+              "name": "_handleInput",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "selectParent",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "breadcrumb",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_close"
+            }
+          ],
+          "events": [
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "setParent",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "close",
+              "type": {
+                "text": "CustomEvent"
+              }
+            }
+          ],
+          "attributes": [
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "breadcrumbHome",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Home'",
+              "fieldName": "breadcrumbHome"
+            },
+            {
+              "name": "breadcrumbs",
+              "type": {
+                "text": "string[]"
+              },
+              "default": "[]",
+              "fieldName": "breadcrumbs"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "ninja-header",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NinjaHeader",
+          "declaration": {
+            "name": "NinjaHeader",
+            "module": "src/ninja-header.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ninja-header",
+          "declaration": {
+            "name": "NinjaHeader",
+            "module": "src/ninja-header.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/ninja-keys.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "NinjaKeys",
+          "members": [
+            {
+              "kind": "field",
+              "name": "visible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Show or hide element",
+              "attribute": "visible"
+            },
+            {
+              "kind": "field",
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Type a command or search...'",
+              "description": "Search placeholder text",
+              "attribute": "placeholder"
+            },
+            {
+              "kind": "field",
+              "name": "registerHotkeys",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "If true will register all hotkey for all actions",
+              "attribute": "registerHotkeys"
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "default": "[]",
+              "description": "Array of actions",
+              "attribute": "data"
+            },
+            {
+              "kind": "field",
+              "name": "_bump",
+              "type": {
+                "text": "boolean"
+              },
+              "privacy": "private",
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "_actionMatches",
+              "privacy": "private",
+              "default": "[]"
+            },
+            {
+              "kind": "field",
+              "name": "_search",
+              "type": {
+                "text": "string"
+              },
+              "privacy": "private",
+              "default": "''"
+            },
+            {
+              "kind": "field",
+              "name": "_currentRoot",
+              "type": {
+                "text": "string | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "breadcrumbs",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_selected",
+              "type": {
+                "text": "INinjaAction | undefined"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "show"
+            },
+            {
+              "kind": "method",
+              "name": "close"
+            },
+            {
+              "kind": "method",
+              "name": "setParent",
+              "parameters": [
+                {
+                  "name": "parent",
+                  "optional": true,
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "actionFocused",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "index",
+                  "type": {
+                    "text": "INinjaAction"
+                  }
+                },
+                {
+                  "name": "$event",
+                  "type": {
+                    "text": "MouseEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_onTransitionEnd",
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_goBack",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_headerRef",
+              "privacy": "private"
+            },
+            {
+              "kind": "field",
+              "name": "_selectedIndex",
+              "type": {
+                "text": "number"
+              },
+              "privacy": "private"
+            },
+            {
+              "kind": "method",
+              "name": "_actionSelected",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "{detail: INinjaAction}"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_handleInput",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "CustomEvent"
+                  }
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_overlayClick",
+              "privacy": "private",
+              "parameters": [
+                {
+                  "name": "event",
+                  "type": {
+                    "text": "Event"
+                  }
+                }
+              ]
+            }
+          ],
+          "attributes": [
+            {
+              "name": "visible",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Show or hide element",
+              "fieldName": "visible"
+            },
+            {
+              "name": "placeholder",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Type a command or search...'",
+              "description": "Search placeholder text",
+              "fieldName": "placeholder"
+            },
+            {
+              "name": "registerHotkeys",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true",
+              "description": "If true will register all hotkey for all actions",
+              "fieldName": "registerHotkeys"
+            },
+            {
+              "name": "data",
+              "default": "[]",
+              "description": "Array of actions",
+              "fieldName": "data"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "ninja-keys",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NinjaKeys",
+          "declaration": {
+            "name": "NinjaKeys",
+            "module": "src/ninja-keys.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "ninja-keys",
+          "declaration": {
+            "name": "NinjaKeys",
+            "module": "src/ninja-keys.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/interfaces/ininja-action.ts",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}
