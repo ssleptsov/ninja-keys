@@ -20,7 +20,9 @@
     "demo": "tsc && rollup -c --file demo/ninja-keys.bundled.js && wds --root-dir=. --node-resolve --watch",
     "serve:prod": "MODE=prod npm run serve",
     "bundle": "npm run build && rollup -c --file dist/ninja-keys.bundled.js",
-    "checksize": "rollup -c ; cat dist/ninja-keys.bundled.js | gzip -9 | wc -c ; rm dist/ninja-keys.bundled.js"
+    "checksize": "rollup -c ; cat dist/ninja-keys.bundled.js | gzip -9 | wc -c ; rm dist/ninja-keys.bundled.js",
+    "publish": "npm run bundle && clean-publish",
+    "publish-test": " rimraf package && clean-publish --without-publish --temp-dir package"
   },
   "keywords": [
     "web-components",
@@ -42,6 +44,9 @@
     "type": "git",
     "url": "git@github.com:ssleptsov/ninja-keys.git"
   },
+  "clean-publish": {
+    "files": ["dev", "demo", "rollup.config.js", "web-dev-server.config.mjs"]
+  },
   "dependencies": {
     "@material/mwc-icon": "0.25.2",
     "hotkeys-js": "3.8.7",
@@ -56,6 +61,7 @@
     "@web/dev-server": "0.1.25",
     "@web/dev-server-rollup": "^0.3.9",
     "@webcomponents/webcomponentsjs": "^2.6.0",
+    "clean-publish": "3.4.2",
     "concurrently": "6.3.0",
     "eslint": "^7.32.0",
     "lit-analyzer": "^1.1.10",

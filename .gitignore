@@ -3,3 +3,4 @@ node_modules/
 /test/
 # top level source
 /dist
+/package

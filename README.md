@@ -6,6 +6,10 @@ Keyboard shorcuts interface for your website. Working with static HTML, Vanila J
 
 My goal was make a component that will smothly work on full static websites and in same time in Vue.
 
+## Demo
+
+![Demo](./demo-min.gif)
+
 ## Usage in plain HTML
 
 ### CDN
