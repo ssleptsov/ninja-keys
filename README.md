@@ -8,7 +8,7 @@ My goal was make a component that will smothly work on full static websites and 
 
 ## Demo
 
-![Demo](./demo-min.gif)
+![Demo](./demo/demo-min.gif)
 
 ## Usage in plain HTML
 
