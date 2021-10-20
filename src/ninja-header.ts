@@ -69,7 +69,8 @@ export class NinjaHeader extends LitElement {
       const itemTemplates = [];
       for (const breadcrumb of this.breadcrumbs) {
         itemTemplates.push(
-          html`<button tabindex="-1"
+          html`<button
+            tabindex="-1"
             @click=${() => this.selectParent(breadcrumb)}
             class="breadcrumb"
           >
@@ -78,7 +79,11 @@ export class NinjaHeader extends LitElement {
         );
       }
       breadcrumbs = html`<div class="breadcrumb-list">
-        <button tabindex="-1" @click=${() => this.selectParent()} class="breadcrumb">
+        <button
+          tabindex="-1"
+          @click=${() => this.selectParent()}
+          class="breadcrumb"
+        >
           ${this.breadcrumbHome}
         </button>
         ${itemTemplates}

@@ -1,4 +1,4 @@
-import {LitElement, html, css, TemplateResult, PropertyValues} from 'lit';
+import {LitElement, html, TemplateResult, PropertyValues} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
 import hotkeys from 'hotkeys-js';
@@ -10,226 +10,103 @@ import {live} from 'lit/directives/live.js';
 import {createRef, ref} from 'lit-html/directives/ref.js';
 import {NinjaHeader} from './ninja-header';
 import {NinjaAction} from './ninja-action';
+import {footerHtml} from './ninja-footer';
+import {baseStyles} from './base-styles';
 
 @customElement('ninja-keys')
 export class NinjaKeys extends LitElement {
-  static override styles = css`
-    :host {
-      --ninja-width: 640px;
-      --ninja-backdrop-filter: saturate(180%) blur(2px);
-      --ninja-overflow-background: rgba(255, 255, 255, 0.5);
-      --ninja-text-color: rgb(60, 65, 73);
-      --ninja-font-family: 'Inter';
-      --ninja-font-size: 16px;
-      --ninja-top: 20%;
-
-      --ninja-key-border-radius: 0.25em;
-      --ninja-accent-color: rgb(110, 94, 210);
-      --ninja-secondary-background-color: rgb(239, 241, 244);
-      --ninja-secondary-text-color: rgb(107, 111, 118);
-
-      --ninja-selected-background: rgb(248, 249, 251);
-
-      --ninja-icon-color: var(--ninja-secondary-text-color);
-      --ninja-separate-border: 1px solid var(--ninja-secondary-background-color);
-
-      --ninja-modal-background: #fff;
-      --ninja-modal-shadow: rgb(0 0 0 / 50%) 0px 16px 70px;
-
-      --ninja-actions-height: 300px;
-      --ninja-group-text-color: rgb(144, 149, 157);
-
-      --ninja-footer-background: rgba(242, 242, 242, 0.4);
-
-      font-size: var(--ninja-font-size);
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background: var(--ninja-overflow-background);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      backdrop-filter: var(--ninja-backdrop-filter);
-      text-align: left;
-      color: var(--ninja-text-color);
-      font-family: var(--ninja-font-family);
-    }
-    .modal.visible {
-      display: block;
-    }
-
-    .modal-content {
-      position: relative;
-      top: var(--ninja-top);
-      margin: auto;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      flex-shrink: 1;
-      -webkit-box-flex: 1;
-      flex-grow: 1;
-      min-width: 0px;
-      will-change: transform;
-      background: var(--ninja-modal-background);
-      border-radius: 0.5em;
-      box-shadow: var(--ninja-modal-shadow);
-      max-width: var(--ninja-width);
-      overflow: hidden;
-    }
-
-    .bump {
-      animation: zoom-in-zoom-out 0.2s ease;
-    }
-
-    @keyframes zoom-in-zoom-out {
-      0% {
-        transform: scale(0.99);
-      }
-      50% {
-        transform: scale(1.01, 1.01);
-      }
-      100% {
-        transform: scale(1, 1);
-      }
-    }
-
-    .ninja-github {
-      color: var(--ninja-keys-text-color);
-      font-weight: normal;
-      text-decoration: none;
-    }
-
-    .actions-list {
-      max-height: var(--ninja-actions-height);
-      overflow: auto;
-      scroll-behavior: smooth;
-      position: relative;
-      margin: 0;
-      padding: 0.5em 0;
-      list-style: none;
-      scroll-behavior: smooth;
-    }
-
-    .group-header {
-      height: 1.375em;
-      line-height: 1.375em;
-      padding-left: 1.25em;
-      padding-top: 0.5em;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      font-size: 0.75em;
-      line-height: 1em;
-      color: var(--ninja-group-text-color);
-      margin: 1px 0;
-    }
-
-    .modal-footer {
-      background: var(--ninja-footer-background);
-      padding: 0.5em 1em;
-      display: flex;
-      /* font-size: 0.75em; */
-      border-top: var(--ninja-separate-border);
-      color: var(--ninja-secondary-text-color);
-    }
-
-    .modal-footer .help {
-      display: flex;
-      margin-right: 1em;
-      align-items: center;
-      font-size: 0.75em;
-    }
-
-    .ninja-examplekey {
-      background: var(--ninja-secondary-background-color);
-      padding: 0.06em 0.25em;
-      border-radius: var(--ninja-key-border-radius);
-      color: var(--ninja-secondary-text-color);
-      width: 1em;
-      height: 1em;
-      margin-right: 0.5em;
-      font-size: 1.25em;
-      fill: currentColor;
-    }
-    .ninja-examplekey.esc {
-      width: auto;
-      height: auto;
-      font-size: 1.1em;
-    }
-  `;
+  static override styles = [baseStyles];
 
   /**
    * Show or hide element
    */
-  @property({type: Boolean})
-  visible = false;
+  @property({type: Boolean}) visible = false;
 
   /**
    * Search placeholder text
    */
-  @property({type: String})
-  placeholder = 'Type a command or search...';
+  @property({type: String}) placeholder = 'Type a command or search...';
 
   /**
    * If true will register all hotkey for all actions
    */
-  @property({type: Boolean})
-  disableHotkeys = false;
+  @property({type: Boolean}) disableHotkeys = false;
 
   /**
    * Show or hide breadcrumbs on header
    */
-  @property({type: Boolean})
-  hideBreadcrumbs = false;
+  @property({type: Boolean}) hideBreadcrumbs = false;
 
   /**
    * Open or hide shorcut
    */
-  @property()
-  openHotkey = 'cmd+k,ctrl+k';
+  @property() openHotkey = 'cmd+k,ctrl+k';
 
   /**
    * Navigation Up hotkey
    */
-  @property()
-  navigationUpHotkey = 'up,shift+tab';
+  @property() navigationUpHotkey = 'up,shift+tab';
 
   /**
    * Navigation Down hotkey
    */
-  @property()
-  navigationDownHotkey = 'down,tab';
+  @property() navigationDownHotkey = 'down,tab';
 
   /**
    * Close hotkey
    */
-  @property()
-  closeHotkey = 'esc';
+  @property() closeHotkey = 'esc';
 
   /**
    * Go back on one level if has parent menu
    */
-  @property()
-  goBackHotkey = 'backspace';
+  @property() goBackHotkey = 'backspace';
 
   /**
    * Select action and execute handler or open submenu
    */
-  @property()
-  selectHotkey = 'enter'; // enter,space
+  @property() selectHotkey = 'enter'; // enter,space
 
   /**
    * Array of actions
    */
-  @property({type: Array})
-  data = [] as Array<INinjaAction>;
+  @property({type: Array}) data = [] as Array<INinjaAction>;
+
+  /**
+   * Public methods
+   */
+
+  /**
+   * Show a modal
+   */
+  open() {
+    this._bump = true;
+    this.visible = true;
+    this._headerRef.value!.focusSearch();
+  }
+
+  /**
+   * Close modal
+   */
+  close() {
+    this._bump = false;
+    this.visible = false;
+  }
+
+  /**
+   * Navigate to group of actions
+   * @param parent id of parent group/action
+   */
+  setParent(parent?: string) {
+    if (!parent) {
+      this._currentRoot = undefined;
+      // this.breadcrumbs = [];
+    } else {
+      this._currentRoot = parent;
+    }
+    this._search = '';
+    this._headerRef.value!.setSearch('');
+  }
 
   /**
    * Temproray used for animation effect. TODO: change to animate logic
@@ -265,34 +142,6 @@ export class NinjaKeys extends LitElement {
 
   @state()
   private _selected?: INinjaAction;
-
-  /**
-   * Show a modal
-   */
-  open() {
-    this._bump = true;
-    this.visible = true;
-    this._headerRef.value!.focusSearch();
-  }
-
-  /**
-   * Close modal
-   */
-  close() {
-    this._bump = false;
-    this.visible = false;
-  }
-
-  setParent(parent?: string) {
-    if (!parent) {
-      this._currentRoot = undefined;
-      // this.breadcrumbs = [];
-    } else {
-      this._currentRoot = parent;
-    }
-    this._search = '';
-    this._headerRef.value!.setSearch('');
-  }
 
   override connectedCallback() {
     super.connectedCallback();
@@ -480,66 +329,7 @@ export class NinjaKeys extends LitElement {
           <div class="modal-body">
             <div class="actions-list">${itemTemplates}</div>
           </div>
-          <slot name="footer">
-            <div class="modal-footer" slot="footer">
-              <span class="help">
-                <svg
-                  version="1.0"
-                  class="ninja-examplekey"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 1280 1280"
-                >
-                  <path
-                    d="M1013 376c0 73.4-.4 113.3-1.1 120.2a159.9 159.9 0 0 1-90.2 127.3c-20 9.6-36.7 14-59.2 15.5-7.1.5-121.9.9-255 1h-242l95.5-95.5 95.5-95.5-38.3-38.2-38.2-38.3-160 160c-88 88-160 160.4-160 161 0 .6 72 73 160 161l160 160 38.2-38.3 38.3-38.2-95.5-95.5-95.5-95.5h251.1c252.9 0 259.8-.1 281.4-3.6 72.1-11.8 136.9-54.1 178.5-116.4 8.6-12.9 22.6-40.5 28-55.4 4.4-12 10.7-36.1 13.1-50.6 1.6-9.6 1.8-21 2.1-132.8l.4-122.2H1013v110z"
-                  />
-                </svg>
-
-                to select
-              </span>
-              <span class="help">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="ninja-examplekey"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path
-                    d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
-                  />
-                </svg>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="ninja-examplekey"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
-                  <path
-                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
-                  />
-                </svg>
-                to navigate
-              </span>
-              <span class="help">
-                <span class="ninja-examplekey esc">esc</span>
-                to close
-              </span>
-              <span class="help">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="ninja-examplekey"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-                move to parent
-              </span>
-            </div>
-          </slot>
+          <slot name="footer"> ${footerHtml} </slot>
         </div>
       </div>
     `;

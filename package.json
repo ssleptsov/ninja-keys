@@ -1,6 +1,6 @@
 {
   "name": "ninja-keys",
-  "version": "1.0.0-beta",
+  "version": "1.0.0-beta.5",
   "description": "Ninja Keys",
   "main": "dist/ninja-keys.js",
   "module": "dist/ninja-keys.js",
@@ -21,7 +21,8 @@
     "serve:prod": "MODE=prod npm run serve",
     "bundle": "npm run build && rollup -c --file dist/ninja-keys.bundled.js",
     "checksize": "rollup -c ; cat dist/ninja-keys.bundled.js | gzip -9 | wc -c ; rm dist/ninja-keys.bundled.js",
-    "publish": "npm run bundle && clean-publish",
+    "prepublish": "npm run build && npm run bundle",
+    "publish": "clean-publish",
     "publish-test": " rimraf package && clean-publish --without-publish --temp-dir package"
   },
   "keywords": [
