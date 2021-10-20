@@ -15,9 +15,33 @@ import {NinjaAction} from './ninja-action';
 export class NinjaKeys extends LitElement {
   static override styles = css`
     :host {
-      font-family: var(--ninja-keys-font-family, Inter);
-      --ninja-keys-text-color: rgb(60, 65, 73);
-      text-align: left;
+      --ninja-width: 640px;
+      --ninja-backdrop-filter: saturate(180%) blur(2px);
+      --ninja-overflow-background: rgba(255, 255, 255, 0.5);
+      --ninja-text-color: rgb(60, 65, 73);
+      --ninja-font-family: 'Inter';
+      --ninja-font-size: 16px;
+      --ninja-top: 20%;
+
+      --ninja-key-border-radius: 0.25em;
+      --ninja-accent-color: rgb(110, 94, 210);
+      --ninja-secondary-background-color: rgb(239, 241, 244);
+      --ninja-secondary-text-color: rgb(107, 111, 118);
+
+      --ninja-selected-background: rgb(248, 249, 251);
+
+      --ninja-icon-color: var(--ninja-secondary-text-color);
+      --ninja-separate-border: 1px solid var(--ninja-secondary-background-color);
+
+      --ninja-modal-background: #fff;
+      --ninja-modal-shadow: rgb(0 0 0 / 50%) 0px 16px 70px;
+
+      --ninja-actions-height: 300px;
+      --ninja-group-text-color: rgb(144, 149, 157);
+
+      --ninja-footer-background: rgba(242, 242, 242, 0.4);
+
+      font-size: var(--ninja-font-size);
     }
 
     .modal {
@@ -29,24 +53,23 @@ export class NinjaKeys extends LitElement {
       width: 100%;
       height: 100%;
       overflow: auto;
-      background: rgba(255, 255, 255, 0.5);
+      background: var(--ninja-overflow-background);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      backdrop-filter: saturate(180%) blur(2px);
-      /* font-family: var(--font-sans); */
-      /* backdrop-filter: blur(2px); */
+      backdrop-filter: var(--ninja-backdrop-filter);
+      text-align: left;
+      color: var(--ninja-text-color);
+      font-family: var(--ninja-font-family);
     }
     .modal.visible {
       display: block;
     }
 
-    /* Modal Content */
     .modal-content {
       position: relative;
-      top: 20%;
+      top: var(--ninja-top);
       margin: auto;
       padding: 0;
-
       display: flex;
       flex-direction: column;
       flex-shrink: 1;
@@ -54,16 +77,10 @@ export class NinjaKeys extends LitElement {
       flex-grow: 1;
       min-width: 0px;
       will-change: transform;
-      background: linear-gradient(
-        136.61deg,
-        rgb(255, 255, 255) 13.72%,
-        rgb(255, 255, 255) 74.3%
-      );
-      border-radius: 8px;
-      box-shadow: rgb(0 0 0 / 50%) 0px 16px 70px;
-      max-width: 640px;
-      font-size: 14px;
-      color: var(--ninja-keys-text-color);
+      background: var(--ninja-modal-background);
+      border-radius: 0.5em;
+      box-shadow: var(--ninja-modal-shadow);
+      max-width: var(--ninja-width);
       overflow: hidden;
     }
 
@@ -90,54 +107,61 @@ export class NinjaKeys extends LitElement {
     }
 
     .actions-list {
-      max-height: 300px;
+      max-height: var(--ninja-actions-height);
       overflow: auto;
       scroll-behavior: smooth;
       position: relative;
       margin: 0;
-      padding: 16px 0;
+      padding: 0.5em 0;
       list-style: none;
       scroll-behavior: smooth;
     }
 
     .group-header {
-      height: 22px;
-      line-height: 22px;
-      padding-left: 20px;
+      height: 1.375em;
+      line-height: 1.375em;
+      padding-left: 1.25em;
+      padding-top: 0.5em;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      font-size: 12px;
-      color: rgb(144, 149, 157);
+      font-size: 0.75em;
+      line-height: 1em;
+      color: var(--ninja-group-text-color);
       margin: 1px 0;
     }
 
     .modal-footer {
-      background: rgba(242, 242, 242, 0.4);
-      padding: 8px 16px;
+      background: var(--ninja-footer-background);
+      padding: 0.5em 1em;
       display: flex;
-      font-size: 12px;
-      border-top: 1px solid rgb(239, 241, 244);
-      color: rgb(107, 111, 118);
+      /* font-size: 0.75em; */
+      border-top: var(--ninja-separate-border);
+      color: var(--ninja-secondary-text-color);
     }
 
     .modal-footer .help {
       display: flex;
-      margin-right: 16px;
+      margin-right: 1em;
       align-items: center;
+      font-size: 0.75em;
     }
 
     .ninja-examplekey {
-      background: rgb(239, 241, 244);
-      padding: 1px 4px;
-      border-radius: 3px;
-      min-width: 20px;
-      color: rgb(107, 111, 118);
-      font-size: 12px;
-      width: 15px;
-      height: 15px;
-      margin-right: 8px;
+      background: var(--ninja-secondary-background-color);
+      padding: 0.06em 0.25em;
+      border-radius: var(--ninja-key-border-radius);
+      color: var(--ninja-secondary-text-color);
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5em;
+      font-size: 1.25em;
       fill: currentColor;
+    }
+    .ninja-examplekey.esc {
+      width: auto;
+      height: auto;
+      font-size: 1.1em;
     }
   `;
 
@@ -266,6 +290,8 @@ export class NinjaKeys extends LitElement {
     } else {
       this._currentRoot = parent;
     }
+    this._search = '';
+    this._headerRef.value!.setSearch('');
   }
 
   override connectedCallback() {
@@ -494,18 +520,20 @@ export class NinjaKeys extends LitElement {
                 to navigate
               </span>
               <span class="help">
-                <span class="ninja-examplekey">esc</span>
+                <span class="ninja-examplekey esc">esc</span>
                 to close
               </span>
               <span class="help">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="ninja-examplekey"
-                  viewBox="0 0 24 24"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
                 >
-                  <path d="M0 0h24v24H0V0z" fill="none" />
                   <path
-                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                    fill-rule="evenodd"
+                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd"
                   />
                 </svg>
                 move to parent

@@ -10,20 +10,20 @@ export class NinjaHeader extends LitElement {
       position: relative;
     }
     .search {
-      padding: 20px;
+      padding: 1.25em;
       flex-grow: 1;
       flex-shrink: 0;
       margin: 0px;
       border: none;
       appearance: none;
-      font-size: 18px;
+      font-size: 1.125em;
       background: transparent;
-      color: rgb(60, 65, 73);
-      caret-color: rgb(110, 94, 210);
+      caret-color: var(--ninja-accent-color);
+      color: var(--ninja-text-color);
       outline: none;
     }
     .breadcrumb-list {
-      padding: 16px 64px 0px 16px;
+      padding: 1em 4em 0 1em;
       display: flex;
       flex-direction: row;
       align-items: stretch;
@@ -32,22 +32,20 @@ export class NinjaHeader extends LitElement {
     }
 
     .breadcrumb {
-      background: rgb(239, 241, 244);
-      height: 20px;
+      background: var(--ninja-secondary-background-color);
       text-align: center;
-      line-height: 20px;
-      border-radius: 4px;
+      line-height: 1.2em;
+      border-radius: var(--ninja-key-border-radius);
       border: 0;
       cursor: pointer;
-      font-size: 12px;
-      padding: 0 8px;
-      color: rgb(107, 111, 118);
-      margin-right: 8px;
+      padding: 0.1em 0.5em;
+      color: var(--ninja-secondary-text-color);
+      margin-right: 0.5em;
     }
 
     .search-wrapper {
       display: flex;
-      border-bottom: 1px solid rgb(239, 241, 244);
+      border-bottom: var(--ninja-separate-border);
     }
   `;
 
@@ -71,7 +69,7 @@ export class NinjaHeader extends LitElement {
       const itemTemplates = [];
       for (const breadcrumb of this.breadcrumbs) {
         itemTemplates.push(
-          html`<button
+          html`<button tabindex="-1"
             @click=${() => this.selectParent(breadcrumb)}
             class="breadcrumb"
           >
@@ -80,7 +78,7 @@ export class NinjaHeader extends LitElement {
         );
       }
       breadcrumbs = html`<div class="breadcrumb-list">
-        <button @click=${() => this.selectParent()} class="breadcrumb">
+        <button tabindex="-1" @click=${() => this.selectParent()} class="breadcrumb">
           ${this.breadcrumbHome}
         </button>
         ${itemTemplates}

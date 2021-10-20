@@ -11,56 +11,59 @@ export class NinjaAction extends LitElement {
       display: flex;
     }
     .ninja-action {
-      padding: 12px 16px;
+      padding: 0.75em 1em;
       display: flex;
-      border-left: 2px solid rgb(110, 121, 214, 0);
+      border-left: 2px solid transparent;
       align-items: center;
       justify-content: start;
-      font-size: 13px;
       outline: none;
       transition: color 0s ease 0s;
     }
     .ninja-action.selected {
       cursor: pointer;
-      background-color: rgb(248, 249, 251);
-      border-left: 2px solid rgb(110, 121, 214);
+      color: var(--ninja-selected-text-color);
+      background-color: var(--ninja-selected-background);
+      border-left: 2px solid var(--ninja-accent-color);
       outline: none;
+    }
+    .ninja-action.selected .ninja-icon {
+      color: var(--ninja-selected-text-color);
     }
     slot {
       display: flex;
       width: 100%;
     }
     .ninja-icon {
-      font-size: 20px;
-      margin-right: 16px;
-      color: rgb(107, 111, 118);
-      margin-right: 16px;
-      width: 20px;
-      height: 20px;
+      font-size: 1.2em;
+      margin-right: 1em;
+      color: var(--ninja-icon-color);
+      margin-right: 1em;
       position: relative;
     }
+
     .ninja-title {
       flex-shrink: 0.01;
-      margin-right: 8px;
+      margin-right: 0.5em;
       flex-grow: 1;
+      font-size: 0.8125em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
     .ninja-hotkeys {
-      margin-left: 8px;
+      margin-left: 0.5em;
       flex-shrink: 0;
       width: min-content;
     }
 
     .ninja-hotkey {
-      background: rgb(239, 241, 244);
-      padding: 1px 4px;
-      border-radius: 3px;
-      min-width: 20px;
+      background: var(--ninja-secondary-background-color);
+      padding: 0.06em 0.25em;
+      border-radius: var(--ninja-key-border-radius);
+      min-width: 1.2em;
       text-transform: capitalize;
-      color: rgb(107, 111, 118);
-      font-size: 12px;
+      color: var(--ninja-secondary-text-color);
+      font-size: 0.75em;
     }
   `;
 
