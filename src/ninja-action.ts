@@ -59,7 +59,7 @@ export class NinjaAction extends LitElement {
       border-radius: 3px;
       min-width: 20px;
       text-transform: capitalize;
-      color: rgb(60, 65, 73);
+      color: rgb(107, 111, 118);
       font-size: 12px;
     }
   `;

@@ -67,7 +67,7 @@
       varius urna ac scelerisque aliquet. Integer tempus auctor condimentum.
       Pellentesque faucibus nunc et felis fermentum, quis varius leo porttitor.
     </div>
-    <ninja-keys> </ninja-keys>
+    <ninja-keys></ninja-keys>
     <script>
       const ninja = document.querySelector('ninja-keys');
       ninja.data = [
@@ -101,7 +101,7 @@
           hotkey: 'ctrl+U',
           handler: () => {
             ninja.setParent();
-            ninja.show();
+            ninja.open();
             // if you call ninja menu need to return this result to prevent auto close
             return {keepOpen: true};
           },
@@ -115,7 +115,7 @@
           hotkey: 'ctrl+T',
           handler: () => {
             ninja.setParent('Theme');
-            ninja.show();
+            ninja.open();
             console.log('Hey FROM HERE');
             return {keepOpen: true};
           },

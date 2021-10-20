@@ -111,6 +111,34 @@ export class NinjaKeys extends LitElement {
       color: rgb(144, 149, 157);
       margin: 1px 0;
     }
+
+    .modal-footer {
+      background: rgba(242, 242, 242, 0.4);
+      padding: 8px 16px;
+      display: flex;
+      font-size: 12px;
+      border-top: 1px solid rgb(239, 241, 244);
+      color: rgb(107, 111, 118);
+    }
+
+    .modal-footer .help {
+      display: flex;
+      margin-right: 16px;
+      align-items: center;
+    }
+
+    .ninja-examplekey {
+      background: rgb(239, 241, 244);
+      padding: 1px 4px;
+      border-radius: 3px;
+      min-width: 20px;
+      color: rgb(107, 111, 118);
+      font-size: 12px;
+      width: 15px;
+      height: 15px;
+      margin-right: 8px;
+      fill: currentColor;
+    }
   `;
 
   /**
@@ -129,7 +157,13 @@ export class NinjaKeys extends LitElement {
    * If true will register all hotkey for all actions
    */
   @property({type: Boolean})
-  registerHotkeys = true;
+  disableHotkeys = false;
+
+  /**
+   * Show or hide breadcrumbs on header
+   */
+  @property({type: Boolean})
+  hideBreadcrumbs = false;
 
   /**
    * Array of actions
@@ -248,8 +282,7 @@ export class NinjaKeys extends LitElement {
   }
 
   override update(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('data')) {
-      console.log('Data changed', this.data);
+    if (changedProperties.has('data') && !this.disableHotkeys) {
       this.data
         .filter((action) => !!action.hotkey)
         .forEach((action) => {
@@ -343,15 +376,12 @@ export class NinjaKeys extends LitElement {
     });
 
     return html`
-      <div
-        id="ninja-keys"
-        @click=${this._overlayClick}
-        class=${classMap(menuClasses)}
-      >
+      <div @click=${this._overlayClick} class=${classMap(menuClasses)}>
         <div class=${classMap(classes)} @animationend=${this._onTransitionEnd}>
           <ninja-header
             ${ref(this._headerRef)}
             .placeholder=${this.placeholder}
+            .hideBreadcrumbs=${this.hideBreadcrumbs}
             .breadcrumbs=${this.breadcrumbs}
             @change=${this._handleInput}
             @setParent=${(event: CustomEvent) =>
@@ -362,6 +392,64 @@ export class NinjaKeys extends LitElement {
           <div class="modal-body">
             <div class="actions-list">${itemTemplates}</div>
           </div>
+          <slot name="footer">
+            <div class="modal-footer">
+              <span class="help">
+                <svg
+                  version="1.0"
+                  class="ninja-examplekey"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 1280 1280"
+                >
+                  <path
+                    d="M1013 376c0 73.4-.4 113.3-1.1 120.2a159.9 159.9 0 0 1-90.2 127.3c-20 9.6-36.7 14-59.2 15.5-7.1.5-121.9.9-255 1h-242l95.5-95.5 95.5-95.5-38.3-38.2-38.2-38.3-160 160c-88 88-160 160.4-160 161 0 .6 72 73 160 161l160 160 38.2-38.3 38.3-38.2-95.5-95.5-95.5-95.5h251.1c252.9 0 259.8-.1 281.4-3.6 72.1-11.8 136.9-54.1 178.5-116.4 8.6-12.9 22.6-40.5 28-55.4 4.4-12 10.7-36.1 13.1-50.6 1.6-9.6 1.8-21 2.1-132.8l.4-122.2H1013v110z"
+                  />
+                </svg>
+
+                to select
+              </span>
+              <span class="help">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="ninja-examplekey"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"
+                  />
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="ninja-examplekey"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"
+                  />
+                </svg>
+                to navigate
+              </span>
+              <span class="help">
+                <span class="ninja-examplekey">esc</span>
+                to close
+              </span>
+              <span class="help">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="ninja-examplekey"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M0 0h24v24H0V0z" fill="none" />
+                  <path
+                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                  />
+                </svg>
+                move to parent
+              </span>
+            </div>
+          </slot>
         </div>
       </div>
     `;
@@ -398,7 +486,7 @@ export class NinjaKeys extends LitElement {
   }
 
   private _overlayClick(event: Event) {
-    if ((event.target as HTMLElement)?.id === 'ninja-keys') {
+    if ((event.target as HTMLElement)?.classList.contains('modal')) {
       this.close();
     }
   }

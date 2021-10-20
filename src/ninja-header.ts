@@ -1,4 +1,4 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {ref, createRef} from 'lit/directives/ref.js';
 
@@ -21,24 +21,6 @@ export class NinjaHeader extends LitElement {
       color: rgb(60, 65, 73);
       caret-color: rgb(110, 94, 210);
       outline: none;
-    }
-    .close {
-      border: none;
-      background: rgb(239, 241, 244);
-      padding: 4px;
-      border-radius: 3px;
-      min-width: 20px;
-      color: rgb(60, 65, 73);
-      position: absolute;
-      right: 16px;
-      top: 16px;
-      font-size: 12px;
-    }
-
-    .close:hover,
-    .close:focus {
-      text-decoration: none;
-      cursor: pointer;
     }
     .breadcrumb-list {
       padding: 16px 64px 0px 16px;
@@ -72,6 +54,9 @@ export class NinjaHeader extends LitElement {
   @property()
   placeholder = '';
 
+  @property({type: Boolean})
+  hideBreadcrumbs = false;
+
   @property()
   breadcrumbHome = 'Home';
 
@@ -81,26 +66,29 @@ export class NinjaHeader extends LitElement {
   private _inputRef = createRef<HTMLInputElement>();
 
   override render() {
-    const itemTemplates = [];
-    for (const breadcrumb of this.breadcrumbs) {
-      itemTemplates.push(
-        html`<button
-          @click=${() => this.selectParent(breadcrumb)}
-          class="breadcrumb"
-        >
-          ${breadcrumb}
-        </button>`
-      );
-    }
-
-    return html`
-      <button class="close" @click=${this._close}>esc</button>
-      <div class="breadcrumb-list">
+    let breadcrumbs: TemplateResult<1> | '' = '';
+    if (!this.hideBreadcrumbs) {
+      const itemTemplates = [];
+      for (const breadcrumb of this.breadcrumbs) {
+        itemTemplates.push(
+          html`<button
+            @click=${() => this.selectParent(breadcrumb)}
+            class="breadcrumb"
+          >
+            ${breadcrumb}
+          </button>`
+        );
+      }
+      breadcrumbs = html`<div class="breadcrumb-list">
         <button @click=${() => this.selectParent()} class="breadcrumb">
           ${this.breadcrumbHome}
         </button>
         ${itemTemplates}
-      </div>
+      </div>`;
+    }
+
+    return html`
+      ${breadcrumbs}
       <div class="search-wrapper">
         <input
           type="text"

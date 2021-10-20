@@ -45,7 +45,12 @@
     "url": "git@github.com:ssleptsov/ninja-keys.git"
   },
   "clean-publish": {
-    "files": ["dev", "docs", "rollup.config.js", "web-dev-server.config.mjs"]
+    "files": [
+      "dev",
+      "docs",
+      "rollup.config.js",
+      "web-dev-server.config.mjs"
+    ]
   },
   "dependencies": {
     "@material/mwc-icon": "0.25.2",
