@@ -455,7 +455,7 @@ export class NinjaKeys extends LitElement {
             <div class="actions-list">${itemTemplates}</div>
           </div>
           <slot name="footer">
-            <div class="modal-footer">
+            <div class="modal-footer" slot="footer">
               <span class="help">
                 <svg
                   version="1.0"
