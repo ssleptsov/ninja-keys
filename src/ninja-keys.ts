@@ -166,11 +166,50 @@ export class NinjaKeys extends LitElement {
   hideBreadcrumbs = false;
 
   /**
+   * Open or hide shorcut
+   */
+  @property()
+  openHotkey = 'cmd+k,ctrl+k';
+
+  /**
+   * Navigation Up hotkey
+   */
+  @property()
+  navigationUpHotkey = 'up,shift+tab';
+
+  /**
+   * Navigation Down hotkey
+   */
+  @property()
+  navigationDownHotkey = 'down,tab';
+
+  /**
+   * Close hotkey
+   */
+  @property()
+  closeHotkey = 'esc';
+
+  /**
+   * Go back on one level if has parent menu
+   */
+  @property()
+  goBackHotkey = 'backspace';
+
+  /**
+   * Select action and execute handler or open submenu
+   */
+  @property()
+  selectHotkey = 'enter'; // enter,space
+
+  /**
    * Array of actions
    */
   @property({type: Array})
   data = [] as Array<INinjaAction>;
 
+  /**
+   * Temproray used for animation effect. TODO: change to animate logic
+   */
   @state()
   private _bump = true;
 
@@ -203,12 +242,18 @@ export class NinjaKeys extends LitElement {
   @state()
   private _selected?: INinjaAction;
 
+  /**
+   * Show a modal
+   */
   open() {
     this._bump = true;
     this.visible = true;
     this._headerRef.value!.focusSearch();
   }
 
+  /**
+   * Close modal
+   */
   close() {
     this._bump = false;
     this.visible = false;
@@ -223,62 +268,9 @@ export class NinjaKeys extends LitElement {
     }
   }
 
-  constructor() {
-    super();
-
-    hotkeys('cmd+k', (event) => {
-      event.preventDefault();
-      this.visible ? this.close() : this.open();
-    });
-
-    hotkeys('enter', (event) => {
-      if (!this.visible) {
-        return;
-      }
-      event.preventDefault();
-      this._actionSelected({detail: this._actionMatches[this._selectedIndex]});
-    });
-
-    hotkeys('backspace', (event) => {
-      if (!this.visible) {
-        return;
-      }
-      if (!this._search) {
-        event.preventDefault();
-        this._goBack();
-      }
-    });
-
-    hotkeys('down,tab', (event) => {
-      if (!this.visible) {
-        return;
-      }
-      event.preventDefault();
-      if (this._selectedIndex >= this._actionMatches.length - 1) {
-        this._selected = this._actionMatches[0];
-      } else {
-        this._selected = this._actionMatches[this._selectedIndex + 1];
-      }
-    });
-
-    hotkeys('up,shift+tab', (event) => {
-      if (!this.visible) {
-        return;
-      }
-      event.preventDefault();
-      if (this._selectedIndex === 0) {
-        this._selected = this._actionMatches[this._actionMatches.length - 1];
-      } else {
-        this._selected = this._actionMatches[this._selectedIndex - 1];
-      }
-    });
-
-    hotkeys('esc', () => {
-      if (!this.visible) {
-        return;
-      }
-      this.close();
-    });
+  override connectedCallback() {
+    super.connectedCallback();
+    this._registerInternalHotkeys();
   }
 
   override update(changedProperties: PropertyValues<this>) {
@@ -297,7 +289,77 @@ export class NinjaKeys extends LitElement {
     super.update(changedProperties);
   }
 
-  private actionFocused(index: INinjaAction, $event: MouseEvent) {
+  private _registerInternalHotkeys() {
+    if (this.openHotkey) {
+      hotkeys(this.openHotkey, (event) => {
+        event.preventDefault();
+        this.visible ? this.close() : this.open();
+      });
+    }
+
+    if (this.selectHotkey) {
+      hotkeys(this.selectHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        event.preventDefault();
+        this._actionSelected({
+          detail: this._actionMatches[this._selectedIndex],
+        });
+      });
+    }
+
+    if (this.goBackHotkey) {
+      hotkeys(this.goBackHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        if (!this._search) {
+          event.preventDefault();
+          this._goBack();
+        }
+      });
+    }
+
+    if (this.navigationDownHotkey) {
+      hotkeys(this.navigationDownHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        event.preventDefault();
+        if (this._selectedIndex >= this._actionMatches.length - 1) {
+          this._selected = this._actionMatches[0];
+        } else {
+          this._selected = this._actionMatches[this._selectedIndex + 1];
+        }
+      });
+    }
+
+    if (this.navigationUpHotkey) {
+      hotkeys(this.navigationUpHotkey, (event) => {
+        if (!this.visible) {
+          return;
+        }
+        event.preventDefault();
+        if (this._selectedIndex === 0) {
+          this._selected = this._actionMatches[this._actionMatches.length - 1];
+        } else {
+          this._selected = this._actionMatches[this._selectedIndex - 1];
+        }
+      });
+    }
+
+    if (this.closeHotkey) {
+      hotkeys(this.closeHotkey, () => {
+        if (!this.visible) {
+          return;
+        }
+        this.close();
+      });
+    }
+  }
+
+  private _actionFocused(index: INinjaAction, $event: MouseEvent) {
     // this.selectedIndex = index;
     this._selected = index;
     ($event.target as NinjaAction).ensureInView();
@@ -361,7 +423,7 @@ export class NinjaKeys extends LitElement {
           html`<ninja-action
             .selected=${live(action.id === this._selected?.id)}
             @mouseover=${($event: MouseEvent) =>
-              this.actionFocused(action, $event)}
+              this._actionFocused(action, $event)}
             @actionsSelected=${this._actionSelected}
             .action=${action}
           ></ninja-action>`
