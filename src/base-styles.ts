@@ -6,7 +6,6 @@ export const baseStyles = css`
     --ninja-backdrop-filter: saturate(180%) blur(2px);
     --ninja-overflow-background: rgba(255, 255, 255, 0.5);
     --ninja-text-color: rgb(60, 65, 73);
-    --ninja-font-family: 'Inter';
     --ninja-font-size: 16px;
     --ninja-top: 20%;
 
