@@ -17,6 +17,7 @@ export const baseStyles = css`
     --ninja-selected-background: rgb(248, 249, 251);
 
     --ninja-icon-color: var(--ninja-secondary-text-color);
+    --ninja-icon-size: 1.2em;
     --ninja-separate-border: 1px solid var(--ninja-secondary-background-color);
 
     --ninja-modal-background: #fff;

@@ -4,6 +4,7 @@ export interface INinjaAction {
   hotkey?: string;
   handler?: Function;
   href?: string;
+  mdIcon?: string;
   icon?: string;
   parent?: string;
   keywords?: string;

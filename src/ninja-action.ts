@@ -1,7 +1,8 @@
-import {LitElement, html, css} from 'lit';
+import {LitElement, html, css, } from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {INinjaAction} from './interfaces/ininja-action';
 import {classMap} from 'lit/directives/class-map.js';
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import '@material/mwc-icon';
 
 @customElement('ninja-action')
@@ -34,7 +35,9 @@ export class NinjaAction extends LitElement {
       width: 100%;
     }
     .ninja-icon {
-      font-size: 1.2em;
+      font-size: var(--ninja-icon-size);
+      max-width: var(--ninja-icon-size);
+      max-height: var(--ninja-icon-size);
       margin-right: 1em;
       color: var(--ninja-icon-color);
       margin-right: 1em;
@@ -110,9 +113,12 @@ export class NinjaAction extends LitElement {
   }
 
   override render() {
-    const icon = this.action.icon
-      ? html`<mwc-icon class="ninja-icon">${this.action.icon}</mwc-icon>`
-      : html`<div class="ninja-icon"></div>`;
+    let icon;
+    if (this.action.mdIcon){
+      icon = html`<mwc-icon class="ninja-icon">${this.action.mdIcon}</mwc-icon>`
+    } else if (this.action.icon){
+      icon = unsafeHTML(this.action.icon || '');
+    }
 
     // const hotkey = this.action.hotkey
     //   ? html`<div class="ninja-hotkey">${this.action.hotkey}</div>`

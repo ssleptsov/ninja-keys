@@ -2,7 +2,8 @@
 
 <html class="dark">
   <head>
-    <meta charset="utf-8" />
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <title>&lt;ninja-keys> Demo</title>
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
@@ -67,6 +68,12 @@
       html {
         font-size: 18px;
       }
+
+      ninja-keys {
+        --ninja-icon-size: 1em;
+      }
+      
+
     </style>
     <ninja-keys class="dark"> </ninja-keys>
     <script>
@@ -77,40 +84,42 @@
           id: 'Search Projects',
           title: 'Search projects...',
           hotkey: 'Shift+N',
-          icon: 'apps',
+          icon: `<svg xmlns="http://www.w3.org/2000/svg" class="ninja-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+</svg>`,
           section: 'Projects',
         },
         //
         {
           id: 'Theme',
           title: 'Change theme...',
-          icon: 'desktop_windows',
+          mdIcon: 'desktop_windows',
           children: [
             {
               id: 'Light Theme',
               title: 'Change theme to Light',
-              icon: 'light_mode',
+              mdIcon: 'light_mode',
             },
             {
               id: 'Dark Theme',
               title: 'Change theme to Dark',
-              icon: 'dark_mode',
+              mdIcon: 'dark_mode',
               keywords: 'lol'
             },
             {
               id: 'System Theme',
               title: 'Change theme to System',
-              icon: 'desktop_windows',
+              mdIcon: 'desktop_windows',
               children: [
                 {
                   id: 'sub1',
                   title: 'Sub1',
-                  icon: 'light_mode',
+                  mdIcon: 'light_mode',
                 },
                 {
                   id: 'sub2',
                   title: 'sub2',
-                  icon: 'dark_mode',
+                  mdIcon: 'dark_mode',
                 },
               ],
             },
@@ -123,13 +132,13 @@
       //     id: 'Search Projects',
       //     title: 'Search projects...',
       //     hotkey: 'Shift+N',
-      //     icon: 'apps',
+      //     mdIcon: 'apps',
       //     section: 'Projects',
       //   },
       //   {
       //     id: 'Create New Project',
       //     title: 'Create new project...',
-      //     icon: 'add',
+      //     mdIcon: 'add',
       //     section: 'Projects',
       //   },
       //   //
@@ -137,13 +146,13 @@
       //     id: 'Search Teams',
       //     title: 'Search teams...',
       //     hotkey: 'ctrl+U',
-      //     icon: 'person_search',
+      //     mdIcon: 'person_search',
       //     section: 'Team',
       //   },
       //   {
       //     id: 'Create New Team',
       //     title: 'Create team',
-      //     icon: 'add',
+      //     mdIcon: 'add',
       //     section: 'Team',
       //     hotkey: 'ctrl+N'
       //   },
@@ -151,7 +160,7 @@
       //   {
       //     id: 'Theme',
       //     title: 'Change theme...',
-      //     icon: 'desktop_windows',
+      //     mdIcon: 'desktop_windows',
       //     children: ['Light Theme', 'Dark Theme', 'System Theme'],
       //     hotkey: 'ctrl+T',
       //     handler: () => {
@@ -163,29 +172,29 @@
       //   {
       //     id: 'Light Theme',
       //     title: 'Change theme to Light',
-      //     icon: 'light_mode',
+      //     mdIcon: 'light_mode',
       //     parent: 'Theme',
       //   },
       //   {
       //     id: 'Dark Theme',
       //     title: 'Change theme to Dark',
-      //     icon: 'dark_mode',
+      //     mdIcon: 'dark_mode',
       //     parent: 'Theme',
       //   },
       //   {
       //     id: 'System Theme',
       //     title: 'Change theme to System',
-      //     icon: 'desktop_windows',
+      //     mdIcon: 'desktop_windows',
       //     parent: 'Theme',
       //     children: ['sub1', 'sub2'],
       //   },
 
       //   // sub sub
-      //   {id: 'sub1', title: 'Sub1', icon: 'light_mode', parent: 'System Theme'},
+      //   {id: 'sub1', title: 'Sub1', mdIcon: 'light_mode', parent: 'System Theme'},
       //   {
       //     id: 'sub2',
       //     title: 'sub2',
-      //     icon: 'dark_mode',
+      //     mdIcon: 'dark_mode',
       //     parent: 'System Theme',
       //     children: ['sub2_1', 'sub2_2'],
       //   },
@@ -194,13 +203,13 @@
       //   {
       //     id: 'sub2_1',
       //     title: 'Multi level test',
-      //     icon: 'light_mode',
+      //     mdIcon: 'light_mode',
       //     parent: 'sub2',
       //   },
       //   {
       //     id: 'sub2_2',
       //     title: 'Multi level test 2',
-      //     icon: 'dark_mode',
+      //     mdIcon: 'dark_mode',
       //     parent: 'sub2',
       //   },
       // ];

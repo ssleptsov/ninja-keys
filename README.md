@@ -1,22 +1,34 @@
 # Ninja Keys
 
-Keyboard shortcuts interface for your website. Working with static HTML, Vanilla JS, Vue, React.
+Keyboard shortcuts interface for your website. Working with Vanilla JS, Vue, React.
 
-🚧 **Work in progress.** That's first shot for me using [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys?ref=badge_shield)
+![npm](https://img.shields.io/npm/v/ninja-keys)
+![npm](https://img.shields.io/npm/dw/ninja-keys)
 
-My goal was make a component that will smothly work on full static websites and in same time in Vue.
+## Why?
+
+I was needed an keyboard interface for navigation for static website without any frameworks.
+In same time I have few vue projects where it can be useful too.
+So I decided to give first shot for [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
+
+## Background for element
+
+
+## Background for name
+Why "Ninja" ? - because it appear from nowhere and execute any actions quickly or just allow your users become keyboard ninja's 🙃
 
 ## Demo
 
 ![Demo](./docs/demo-min.gif)
-
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys?ref=badge_shield)
 
 ## Usage in plain HTML
 
 ### CDN
 
 #### Add to your HTML
+
+<kbd>⌘ + K</kbd>
 
 ```html
 <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
