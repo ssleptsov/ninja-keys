@@ -130,6 +130,12 @@ export class NinjaKeys extends LitElement {
   @state()
   private _currentRoot?: string;
 
+  /**
+   * Array of actions in flat structure
+   */
+  @state() _flatData = [] as Array<INinjaAction>;
+
+
   @state()
   private get breadcrumbs() {
     const path: string[] = [];
@@ -137,7 +143,7 @@ export class NinjaKeys extends LitElement {
     if (parentAction) {
       path.push(parentAction);
       while (parentAction) {
-        const action = this.data.find((a) => a.id === parentAction);
+        const action = this._flatData.find((a) => a.id === parentAction);
         if (action?.parent) {
           path.push(action.parent);
         }
@@ -155,9 +161,33 @@ export class NinjaKeys extends LitElement {
     this._registerInternalHotkeys();
   }
 
+  private _flattern(members: Array<any>, parent?: string): Array<any> {
+    let children = [] as any;
+    return members.map(mem => {
+      const alreadyFlatternByUser = mem.children && mem.children.some((value: any) => { return typeof value == "string" } );
+      const m = {...mem, parent: mem.parent || parent };
+      if (alreadyFlatternByUser){
+        return m;
+      } else {
+        if (m.children && m.children.length) {
+          parent = mem.id;
+          children = [...children, ...m.children];
+        }
+        m.children = m.children ? m.children.map((c: any) => c.id) : [];
+        return m;
+      }
+    }).concat(children.length ? this._flattern(children, parent) : children);
+  }
+
+
   override update(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('data') && !this.disableHotkeys) {
-      this.data
+
+      this._flatData = this._flattern(this.data);
+
+      console.log('_flatData', this._flatData);
+
+      this._flatData
         .filter((action) => !!action.hotkey)
         .forEach((action) => {
           hotkeys(action.hotkey!, (event) => {
@@ -272,7 +302,7 @@ export class NinjaKeys extends LitElement {
       modal: true,
     };
 
-    this._actionMatches = this.data.filter((action) => {
+    this._actionMatches = this._flatData.filter((action) => {
       if (!this._currentRoot && this._search) {
         // global search for items on root
         return action.title.match(new RegExp(this._search, 'gi'));

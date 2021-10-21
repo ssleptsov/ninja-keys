@@ -7,16 +7,12 @@
     <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="../dist/ninja-keys.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons&display=swap"
-      rel="stylesheet"
-    />
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" as="style" type="text/css">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" as="style" type="text/css">
+
+   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
 
     <style>
       p {
@@ -27,7 +23,7 @@
   </head>
 
   <body>
-    <div >
+    <div>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida
       quis nulla et dignissim. Quisque imperdiet turpis eget augue mollis
       varius. Morbi eget molestie velit. Vivamus nec vulputate odio, eget
@@ -84,84 +80,129 @@
           icon: 'apps',
           section: 'Projects',
         },
-        {
-          id: 'Create New Project',
-          title: 'Create new project...',
-          icon: 'add',
-          section: 'Projects',
-        },
-        //
-        {
-          id: 'Search Teams',
-          title: 'Search teams...',
-          hotkey: 'ctrl+U',
-          icon: 'person_search',
-          section: 'Team',
-        },
-        {
-          id: 'Create New Team',
-          title: 'Create team',
-          icon: 'add',
-          section: 'Team',
-          hotkey: 'ctrl+N'
-        },
         //
         {
           id: 'Theme',
           title: 'Change theme...',
           icon: 'desktop_windows',
-          children: ['Light Theme', 'Dark Theme', 'System Theme'],
-          hotkey: 'ctrl+T',
-          handler: () => {
-            ninja.open({ parent: 'Theme' });
-            console.log('Hey FROM HERE');
-            return { keepOpen: true};
-          },
-        },
-        {
-          id: 'Light Theme',
-          title: 'Change theme to Light',
-          icon: 'light_mode',
-          parent: 'Theme',
-        },
-        {
-          id: 'Dark Theme',
-          title: 'Change theme to Dark',
-          icon: 'dark_mode',
-          parent: 'Theme',
-        },
-        {
-          id: 'System Theme',
-          title: 'Change theme to System',
-          icon: 'desktop_windows',
-          parent: 'Theme',
-          children: ['sub1', 'sub2'],
-        },
-
-        // sub sub
-        {id: 'sub1', title: 'Sub1', icon: 'light_mode', parent: 'System Theme'},
-        {
-          id: 'sub2',
-          title: 'sub2',
-          icon: 'dark_mode',
-          parent: 'System Theme',
-          children: ['sub2_1', 'sub2_2'],
-        },
-
-        // sub sub sub
-        {
-          id: 'sub2_1',
-          title: 'Multi level test',
-          icon: 'light_mode',
-          parent: 'sub2',
-        },
-        {
-          id: 'sub2_2',
-          title: 'Multi level test 2',
-          icon: 'dark_mode',
-          parent: 'sub2',
+          children: [
+            {
+              id: 'Light Theme',
+              title: 'Change theme to Light',
+              icon: 'light_mode',
+            },
+            {
+              id: 'Dark Theme',
+              title: 'Change theme to Dark',
+              icon: 'dark_mode',
+            },
+            {
+              id: 'System Theme',
+              title: 'Change theme to System',
+              icon: 'desktop_windows',
+              children: [
+                {
+                  id: 'sub1',
+                  title: 'Sub1',
+                  icon: 'light_mode',
+                },
+                {
+                  id: 'sub2',
+                  title: 'sub2',
+                  icon: 'dark_mode',
+                },
+              ],
+            },
+          ],
         },
       ];
+      // ninja.data = [
+      //   //
+      //   {
+      //     id: 'Search Projects',
+      //     title: 'Search projects...',
+      //     hotkey: 'Shift+N',
+      //     icon: 'apps',
+      //     section: 'Projects',
+      //   },
+      //   {
+      //     id: 'Create New Project',
+      //     title: 'Create new project...',
+      //     icon: 'add',
+      //     section: 'Projects',
+      //   },
+      //   //
+      //   {
+      //     id: 'Search Teams',
+      //     title: 'Search teams...',
+      //     hotkey: 'ctrl+U',
+      //     icon: 'person_search',
+      //     section: 'Team',
+      //   },
+      //   {
+      //     id: 'Create New Team',
+      //     title: 'Create team',
+      //     icon: 'add',
+      //     section: 'Team',
+      //     hotkey: 'ctrl+N'
+      //   },
+      //   //
+      //   {
+      //     id: 'Theme',
+      //     title: 'Change theme...',
+      //     icon: 'desktop_windows',
+      //     children: ['Light Theme', 'Dark Theme', 'System Theme'],
+      //     hotkey: 'ctrl+T',
+      //     handler: () => {
+      //       ninja.open({ parent: 'Theme' });
+      //       console.log('Hey FROM HERE');
+      //       return { keepOpen: true};
+      //     },
+      //   },
+      //   {
+      //     id: 'Light Theme',
+      //     title: 'Change theme to Light',
+      //     icon: 'light_mode',
+      //     parent: 'Theme',
+      //   },
+      //   {
+      //     id: 'Dark Theme',
+      //     title: 'Change theme to Dark',
+      //     icon: 'dark_mode',
+      //     parent: 'Theme',
+      //   },
+      //   {
+      //     id: 'System Theme',
+      //     title: 'Change theme to System',
+      //     icon: 'desktop_windows',
+      //     parent: 'Theme',
+      //     children: ['sub1', 'sub2'],
+      //   },
+
+      //   // sub sub
+      //   {id: 'sub1', title: 'Sub1', icon: 'light_mode', parent: 'System Theme'},
+      //   {
+      //     id: 'sub2',
+      //     title: 'sub2',
+      //     icon: 'dark_mode',
+      //     parent: 'System Theme',
+      //     children: ['sub2_1', 'sub2_2'],
+      //   },
+
+      //   // sub sub sub
+      //   {
+      //     id: 'sub2_1',
+      //     title: 'Multi level test',
+      //     icon: 'light_mode',
+      //     parent: 'sub2',
+      //   },
+      //   {
+      //     id: 'sub2_2',
+      //     title: 'Multi level test 2',
+      //     icon: 'dark_mode',
+      //     parent: 'sub2',
+      //   },
+      // ];
     </script>
   </body>
 </html>
