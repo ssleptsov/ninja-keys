@@ -68,6 +68,12 @@ export class NinjaKeys extends LitElement {
   @property() selectHotkey = 'enter'; // enter,space
 
   /**
+   * Show or hide breadcrumbs on header
+   */
+  @property({type: Boolean}) hotKeysJoinedView = false;
+  
+
+  /**
    * Array of actions
    */
   @property({type: Array}) data = [] as Array<INinjaAction>;
@@ -298,6 +304,7 @@ export class NinjaKeys extends LitElement {
         (action) =>
           html`<ninja-action
             .selected=${live(action.id === this._selected?.id)}
+            .hotKeysJoinedView=${this.hotKeysJoinedView}
             @mouseover=${($event: MouseEvent) =>
               this._actionFocused(action, $event)}
             @actionsSelected=${this._actionSelected}

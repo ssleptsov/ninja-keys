@@ -60,10 +60,10 @@ export class NinjaAction extends LitElement {
       background: var(--ninja-secondary-background-color);
       padding: 0.06em 0.25em;
       border-radius: var(--ninja-key-border-radius);
-      min-width: 1.2em;
       text-transform: capitalize;
       color: var(--ninja-secondary-text-color);
       font-size: 0.75em;
+      margin-left: 0.5em;
     }
   `;
 
@@ -72,6 +72,12 @@ export class NinjaAction extends LitElement {
 
   @property({type: Boolean})
   selected = false;
+
+  /**
+   * Display hotkey as separate buttons on UI or as is
+   */
+  @property({type: Boolean})
+  hotKeysJoinedView = false;
 
   /**
    * Scroll to show element
@@ -108,9 +114,18 @@ export class NinjaAction extends LitElement {
       ? html`<mwc-icon class="ninja-icon">${this.action.icon}</mwc-icon>`
       : html`<div class="ninja-icon"></div>`;
 
-    const hotkey = this.action.hotkey
-      ? html`<div class="ninja-hotkey">${this.action.hotkey}</div>`
-      : '';
+    // const hotkey = this.action.hotkey
+    //   ? html`<div class="ninja-hotkey">${this.action.hotkey}</div>`
+    //   : '';
+    let hotkey;
+    if (this.action.hotkey){
+      if (this.hotKeysJoinedView){
+        hotkey = html`<div class="ninja-hotkey">${this.action.hotkey}</div>`
+      } else {
+        hotkey = this.action.hotkey.split('+').map((key) =>html`<div class="ninja-hotkey">${key}</div>` ) 
+      }
+    }
+    
 
     const classes = {
       selected: this.selected,
