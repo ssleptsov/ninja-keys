@@ -71,7 +71,6 @@ export class NinjaKeys extends LitElement {
    * Show or hide breadcrumbs on header
    */
   @property({type: Boolean}) hotKeysJoinedView = false;
-  
 
   /**
    * Array of actions
@@ -85,7 +84,7 @@ export class NinjaKeys extends LitElement {
   /**
    * Show a modal
    */
-  open(options: { parent?: string } = {}) {
+  open(options: {parent?: string} = {}) {
     this._bump = true;
     this.visible = true;
     this._headerRef.value!.focusSearch();
@@ -135,7 +134,6 @@ export class NinjaKeys extends LitElement {
    */
   @state() _flatData = [] as Array<INinjaAction>;
 
-
   @state()
   private get breadcrumbs() {
     const path: string[] = [];
@@ -161,32 +159,33 @@ export class NinjaKeys extends LitElement {
     this._registerInternalHotkeys();
   }
 
-  private _flattern(members: Array<any>, parent?: string): Array<any> {
-    let children = [] as any;
-    return members.map(mem => {
-      const alreadyFlatternByUser = mem.children && mem.children.some((value: any) => { return typeof value == "string" } );
-      const m = {...mem, parent: mem.parent || parent };
-      if (alreadyFlatternByUser){
-        return m;
-      } else {
-        if (m.children && m.children.length) {
-          parent = mem.id;
-          children = [...children, ...m.children];
+  private _flattern(members: INinjaAction[], parent?: string): INinjaAction[] {
+    let children = [] as Array<any>;
+    return members
+      .map((mem) => {
+        const alreadyFlatternByUser =
+          mem.children &&
+          mem.children.some((value: any) => {
+            return typeof value == 'string';
+          });
+        const m = {...mem, parent: mem.parent || parent};
+        if (alreadyFlatternByUser) {
+          return m;
+        } else {
+          if (m.children && m.children.length) {
+            parent = mem.id;
+            children = [...children, ...m.children];
+          }
+          m.children = m.children ? m.children.map((c: any) => c.id) : [];
+          return m;
         }
-        m.children = m.children ? m.children.map((c: any) => c.id) : [];
-        return m;
-      }
-    }).concat(children.length ? this._flattern(children, parent) : children);
+      })
+      .concat(children.length ? this._flattern(children, parent) : children);
   }
-
 
   override update(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('data') && !this.disableHotkeys) {
-
       this._flatData = this._flattern(this.data);
-
-      console.log('_flatData', this._flatData);
-
       this._flatData
         .filter((action) => !!action.hotkey)
         .forEach((action) => {
@@ -303,15 +302,16 @@ export class NinjaKeys extends LitElement {
     };
 
     this._actionMatches = this._flatData.filter((action) => {
+      const regex = new RegExp(this._search, 'gi');
+      const matcher =
+        action.title.match(regex) || action.keywords?.match(regex);
+
       if (!this._currentRoot && this._search) {
         // global search for items on root
-        return action.title.match(new RegExp(this._search, 'gi'));
+        return matcher;
       }
 
-      return (
-        action.parent === this._currentRoot &&
-        action.title.match(new RegExp(this._search, 'gi'))
-      );
+      return action.parent === this._currentRoot && matcher;
     });
 
     if (this._actionMatches.length > 0 && this._selectedIndex === -1) {

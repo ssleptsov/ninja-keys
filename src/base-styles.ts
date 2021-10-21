@@ -45,8 +45,7 @@ export const baseStyles = css`
     --ninja-selected-background: rgba(51, 51, 51, 0.44);
 
     --ninja-icon-color: var(--ninja-secondary-text-color);
-    --ninja-separate-border: 1px solid
-      var(--ninja-secondary-background-color);
+    --ninja-separate-border: 1px solid var(--ninja-secondary-background-color);
 
     --ninja-modal-shadow: 0 16px 70px rgba(0, 0, 0, 0.2);
 

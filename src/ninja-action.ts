@@ -118,14 +118,15 @@ export class NinjaAction extends LitElement {
     //   ? html`<div class="ninja-hotkey">${this.action.hotkey}</div>`
     //   : '';
     let hotkey;
-    if (this.action.hotkey){
-      if (this.hotKeysJoinedView){
-        hotkey = html`<div class="ninja-hotkey">${this.action.hotkey}</div>`
+    if (this.action.hotkey) {
+      if (this.hotKeysJoinedView) {
+        hotkey = html`<div class="ninja-hotkey">${this.action.hotkey}</div>`;
       } else {
-        hotkey = this.action.hotkey.split('+').map((key) =>html`<div class="ninja-hotkey">${key}</div>` ) 
+        hotkey = this.action.hotkey
+          .split('+')
+          .map((key) => html`<div class="ninja-hotkey">${key}</div>`);
       }
     }
-    
 
     const classes = {
       selected: this.selected,

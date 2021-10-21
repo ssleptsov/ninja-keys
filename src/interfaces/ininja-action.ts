@@ -6,6 +6,7 @@ export interface INinjaAction {
   href?: string;
   icon?: string;
   parent?: string;
+  keywords?: string;
   children?: string[];
   section?: string;
 }
