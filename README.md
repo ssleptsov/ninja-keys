@@ -6,55 +6,48 @@ Keyboard shortcuts interface for your website. Working with Vanilla JS, Vue, Rea
 ![npm](https://img.shields.io/npm/v/ninja-keys)
 ![npm](https://img.shields.io/npm/dw/ninja-keys)
 
-## Why?
-
-I was needed an keyboard interface for navigation for static website without any frameworks.
-In same time I have few vue projects where it can be useful too.
-So I decided to give first shot for [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
-
-## Background for element
-
-
-## Background for name
-Why "Ninja" ? - because it appear from nowhere and execute any actions quickly or just allow your users become keyboard ninja's 🙃
-
 ## Demo
 
 ![Demo](./docs/demo-min.gif)
 
-## Usage in plain HTML
+## Why?
+A lot of applications support that pattern, user hit <kbd>⌘</kbd>+<kbd>k</kbd> (or <kbd>ctrl</kbd>+<kbd>k</kbd>) and search UI dialog appear. 
+I've seen recently in Notion, Slack, Linear, Vercel and Agolia, but I'm sure there are plenty more.
+Also, there is a Apple Spotlight, Alfred and Raycast app that using this pattern too but different shortcuts.
+There are already some libraries but they are too framework spesific, like [larevel only](https://github.com/livewire-ui/spotlight) or [react only](https://github.com/timc1/kbar) 
+Althought, mine is not a silver bullet and if you need more framework integration, check them out too.
 
-### CDN
+I was needed an keyboard interface for navigation for static website without any frameworks.
+In same time I have a few vue projects where it can be useful too.
+So I decided to give first shot for [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
 
-#### Add to your HTML
 
-<kbd>⌘ + K</kbd>
+## Why "Ninja" ?
+Because it appears from nowhere and executes any actions quickly.
+Or because it allows your users to become keyboard ninja's 🙃
 
-```html
-<script type="module" src="https://unpkg.com/ninja-keys?module"></script>
-```
-
-#### Add to your script file if it's module type
-
-```js
-import {NinjaKeys} from 'https://unpkg.com/ninja-keys?module';
-```
-
-#### Install from NPM
-
+## Install from NPM 
 ```bash
 npm i ninja-keys
 ```
-
-If you using webpack, rollup or other build system.
-
+Import if you are using webpack, rollup, vite or other build system.
 ```js
 import from 'ninja-keys';
 ```
 
-### Example
+## Install from CDN
+Mostly for usage in HTML/JS without build system.
+```html
+<script type="module" src="https://unpkg.com/ninja-keys?module"></script>
+```
+or inside your module scripts
+```js
+import {NinjaKeys} from 'https://unpkg.com/ninja-keys?module';
+```
 
-Add tag to your html:
+### Usage
+
+Add tag to your html.
 
 ```html
 <ninja-keys> </ninja-keys>
@@ -82,11 +75,9 @@ Add tag to your html:
       children: ['Light Theme', 'Dark Theme', 'System Theme'],
       hotkey: 'ctrl+T',
       handler: () => {
-        // example hotkey to open sub-menu
-        ninja.setParent('Theme');
-        // if menu closed
-        ninja.open();
-        // if menu opened that prevent it from closing on select such actions
+        // open menu if closed. Because you can open directly that menu from it's hotkey
+        ninja.open({ parent: 'Theme' });
+        // if menu opened that prevent it from closing on select that action, no need if you don't have child actions
         return {keepOpen: true};
       },
     },
@@ -113,10 +104,145 @@ Add tag to your html:
   ];
 </script>
 ```
+Library using flat data structure inside, as in example above. But you can also use tree structure as below:
+```js
+{
+  id: 'Theme',
+  children: [
+    { id: ':ight' title: 'light_mode', },
+    { id: 'System Theme',
+      children: [
+        { title: 'Sub item 1' },
+        { title: 'Sub item 2' }
+      ]
+    }
+  ]
+}
+```
+## Attributes
+| Field                | Default                     | Description                                                 |
+|----------------------|-----------------------------|-------------------------------------------------------------|
+| placeholder          | Type a command or search... | Placeholder for search                                      |
+| disableHotkeys       | false                       | If attribute exist will register all hotkey for all actions |
+| hideBreadcrumbs      | false                       | Hide breadcrumbs on header if true                          |
+| openHotkey           | cmd+k,ctrl+k                | Open or close shortcut                                      |
+| navigationUpHotkey   | up,shift+tab                | Navigation up shortcuts                                     |
+| navigationDownHotkey | down,tab                    | Navigation down shortcuts                                   |
+| closeHotkey          | esc                         | Close shotcut                                               |
+| goBackHotkey         | backspace                   | Go back on one level if has parent menu                     |
+| selectHotkey         | enter                       | Select action and execute handler or open submenu           |
+| hotKeysJoinedView    | false                       | If exist/true will display hotkeys inside one element       |
+| noAutoLoadMdIcons    | false                       | If exist it disable load material icons font on connect     |
+#### Example
+```html
+<ninja-keys placeholder="Must app is awesome" openHotkey="cmd+l" hideBreadcrumbs></ninja-keys>
+```
+
+## Data
+Array of `INinjaAction` - interface properties below
+| Name     | Type                    | Description                                                                            |
+|----------|-------------------------|----------------------------------------------------------------------------------------|
+| id       | string                  | Unique id/text. Will be displayed as breadcrumb in multimenu                           |
+| title    | string                  | Title of action                                                                        |
+| hotkey   | string(optional)        | Shortcut to display and register                                                       |
+| handler  | Function(optional)      | Function to execute on select                                                          |
+| mdIcon   | string(optional)        | Material Design font icon name                                                         |
+| icon     | string(optional)        | Html to render as custom icon                                                          |
+| parent   | string(optional)        | If using flat structure use id of actions to make a multilevel menu                    |
+| keywords | string(optional)        | Keywords to use for search                                                             |
+| children | Array<string>(optional) | If using flat structure then ids of child menu actions. Not requried on tree structure |
+| section  | string(optional)        | Section text. Like a header will be group with other same sections                     |
+
+## Methods
+| Name      | Arg                 | Description                                         |
+|-----------|---------------------|-----------------------------------------------------|
+| open      | { parent?: string } | Open menu with parent, if null them open root menu  |
+| close     |                     | Close menu                                          |
+| setParent | parent?: string     | Navigate to parent menu                             |
+#### Example
+```js
+const ninja = document.querySelector('ninja-keys');
+ninja.open() 
+// or
+ninja.open({ parent: 'Theme' })
+```
+
+## Themes
+Component support dark theme out-of-box. You just need to add a class. 
+```html
+<ninja-keys class="dark"></ninja-keys>
+```
+
+If you need more style control, use css variable below.
+### CSS variables
+| Name                               | Default                            |
+|------------------------------------|------------------------------------|
+| --ninja-width                     | 640px;                             |
+| --ninja-backdrop-filter            | saturate(180%) blur(2px);          |
+| --ninja-overflow-background        | rgba(255, 255, 255, 0.5);          |
+| --ninja-text-color                 |  rgb(60, 65, 73);                  |
+| --ninja-font-size                  | 16px;                              |
+| --ninja-top                        | 20%;                               |
+| --ninja-key-border-radius          | 0.25em                             |
+| --ninja-accent-color               | rgb(110, 94, 210);                 |
+| --ninja-secondary-background-color | rgb(239, 241, 244);                |
+| --ninja-secondary-text-color       |  rgb(107, 111, 118);               |
+| --ninja-selected-background        | rgb(248, 249, 251);                |
+| --ninja-icon-color                 | var(--ninja-secondary-text-color); |
+|     --ninja-icon-size         | 1.2em;                                             |
+|     --ninja-separate-border   | 1px solid var(--ninja-secondary-background-color); |
+|     --ninja-modal-background  | #fff;                                              |
+|     --ninja-modal-shadow      | rgb(0 0 0 / 50%) 0px 16px 70px;                    |
+|     --ninja-actions-height    | 300px;                                             |
+|     --ninja-group-text-color  |  rgb(144, 149, 157);                               |
+|     --ninja-footer-background | rgba(242, 242, 242, 0.4);                          |
+
+
+#### Example
+```css
+ninja-keys {
+  --ninja-width: 400px;
+}
+```
+
+### Icons
+By default component using icons from [https://fonts.google.com/icons](https://fonts.google.com/icons)
+
+For example, you can just set `mdIcon` to `light_mode` to render sun icon.
+
+To add Material icons for website you need to add to html, for example
+```html
+<link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
+```
+
+If want custom icons, you can use `svg` or `img` to insert it with `icon` property for action with `ninja-icon` class.
+Example:
+```js
+{
+  title: 'Search projects...',
+  icon: `<svg xmlns="http://www.w3.org/2000/svg" class="ninja-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+  </svg>`,
+  section: 'Projects',
+},
+```
+Also, you can change width and font using css variables for it
+```css
+ninja-keys {
+  --ninja-icon-size: 1em;
+}
+```
+
+
+### Change or hide footer
+```html
+<ninja-keys> 
+  <slot name="footer">Must custom footer or empty to hide</slot>
+</ninja-keys>
+```
+
 
 ## Dev Server
-
-TBD
 
 ```bash
 npm run start

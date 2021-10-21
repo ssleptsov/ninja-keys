@@ -18,11 +18,6 @@ export class NinjaKeys extends LitElement {
   static override styles = [baseStyles];
 
   /**
-   * Show or hide element
-   */
-  @property({type: Boolean}) visible = false;
-
-  /**
    * Search placeholder text
    */
   @property({type: String}) placeholder = 'Type a command or search...';
@@ -122,6 +117,10 @@ export class NinjaKeys extends LitElement {
     this._headerRef.value!.setSearch('');
   }
 
+  /**
+   * Show or hide element
+   */
+  @state() visible = false;
   /**
    * Temproray used for animation effect. TODO: change to animate logic
    */
