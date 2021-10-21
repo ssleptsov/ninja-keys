@@ -157,10 +157,8 @@
           children: ['Light Theme', 'Dark Theme', 'System Theme'],
           hotkey: 'ctrl+T',
           handler: () => {
-            // example hotkey to open sub-menu
-            ninja.setParent('Theme');
             // if menu closed
-            ninja.open();
+            ninja.open({ parent: 'Theme'});
             // if menu opened that prevent it from closing on select such actions
             return {keepOpen: true};
           },

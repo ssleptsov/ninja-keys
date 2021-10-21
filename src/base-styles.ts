@@ -31,6 +31,30 @@ export const baseStyles = css`
     font-size: var(--ninja-font-size);
   }
 
+  :host(.dark) {
+    --ninja-backdrop-filter: saturate(180%) blur(2px);
+    --ninja-overflow-background: rgba(0, 0, 0, 0.7);
+    --ninja-text-color: #7d7d7d;
+
+    --ninja-modal-background: rgba(17, 17, 17, 0.85);
+    --ninja-accent-color: rgb(110, 94, 210);
+    --ninja-secondary-background-color: rgba(51, 51, 51, 0.44);
+    --ninja-secondary-text-color: #888;
+
+    --ninja-selected-text-color: #eaeaea;
+    --ninja-selected-background: rgba(51, 51, 51, 0.44);
+
+    --ninja-icon-color: var(--ninja-secondary-text-color);
+    --ninja-separate-border: 1px solid
+      var(--ninja-secondary-background-color);
+
+    --ninja-modal-shadow: 0 16px 70px rgba(0, 0, 0, 0.2);
+
+    --ninja-group-text-color: rgb(144, 149, 157);
+
+    --ninja-footer-background: rgba(30, 30, 30, 85%);
+  }
+
   .modal {
     display: none;
     position: fixed;
@@ -149,5 +173,8 @@ export const baseStyles = css`
     width: auto;
     height: auto;
     font-size: 1.1em;
+  }
+  .ninja-examplekey.backspace {
+    opacity: 0.7;
   }
 `;

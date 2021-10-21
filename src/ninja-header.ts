@@ -41,6 +41,7 @@ export class NinjaHeader extends LitElement {
       padding: 0.1em 0.5em;
       color: var(--ninja-secondary-text-color);
       margin-right: 0.5em;
+      outline: none;
     }
 
     .search-wrapper {

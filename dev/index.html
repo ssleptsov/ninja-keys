@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html class="dark">
   <head>
     <meta charset="utf-8" />
     <title>&lt;ninja-keys> Demo</title>
@@ -27,7 +27,7 @@
   </head>
 
   <body>
-    <div>
+    <div >
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas gravida
       quis nulla et dignissim. Quisque imperdiet turpis eget augue mollis
       varius. Morbi eget molestie velit. Vivamus nec vulputate odio, eget
@@ -71,37 +71,8 @@
       html {
         font-size: 18px;
       }
-      ninja-keys {
-        --ninja-width: 640px;
-        --ninja-backdrop-filter: saturate(180%) blur(2px);
-        --ninja-overflow-background: rgba(0, 0, 0, 0.7);
-        --ninja-text-color: #7d7d7d;
-        --ninja-font-family: 'Inter';
-        --ninja-top: 20%;
-
-        --ninja-modal-background: rgba(17, 17, 17, 0.85);
-        --ninja-key-border-radius: 0.25rem;
-        --ninja-accent-color: rgb(110, 94, 210);
-        --ninja-secondary-background-color: rgba(51, 51, 51, 0.44);
-        --ninja-secondary-text-color: #888;
-
-        --ninja-selected-text-color: #eaeaea;
-        --ninja-selected-background: rgba(51, 51, 51, 0.44);
-
-        --ninja-icon-color: var(--ninja-secondary-text-color);
-        --ninja-separate-border: 1px solid
-          var(--ninja-secondary-background-color);
-
-        --ninja-modal-shadow: 0 16px 70px rgba(0, 0, 0, 0.2);
-
-        --ninja-actions-height: 300px;
-        --ninja-group-text-color: rgb(144, 149, 157);
-
-        --ninja-footer-background: rgba(30, 30, 30, 85%);
-        --ninja-font-size: 16px;
-      }
     </style>
-    <ninja-keys> </ninja-keys>
+    <ninja-keys class="dark2"> </ninja-keys>
     <script>
       const ninja = document.querySelector('ninja-keys');
       ninja.data = [
@@ -132,13 +103,7 @@
           title: 'Create team',
           icon: 'add',
           section: 'Team',
-          hotkey: 'ctrl+U',
-          handler: () => {
-            ninja.setParent();
-            ninja.open();
-            // if you call ninja menu need to return this result to prevent auto close
-            return {keepOpen: true};
-          },
+          hotkey: 'ctrl+U'
         },
         //
         {
@@ -148,10 +113,9 @@
           children: ['Light Theme', 'Dark Theme', 'System Theme'],
           hotkey: 'ctrl+T',
           handler: () => {
-            ninja.setParent('Theme');
-            ninja.open();
+            ninja.open({ parent: 'Theme' });
             console.log('Hey FROM HERE');
-            return {keepOpen: true};
+            return { keepOpen: true};
           },
         },
         {

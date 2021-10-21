@@ -43,7 +43,7 @@ export const footerHtml = html` <div class="modal-footer" slot="footer">
   <span class="help">
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      class="ninja-examplekey"
+      class="ninja-examplekey backspace"
       viewBox="0 0 20 20"
       fill="currentColor"
     >

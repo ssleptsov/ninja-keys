@@ -79,10 +79,11 @@ export class NinjaKeys extends LitElement {
   /**
    * Show a modal
    */
-  open() {
+  open(options: { parent?: string } = {}) {
     this._bump = true;
     this.visible = true;
     this._headerRef.value!.focusSearch();
+    this.setParent(options.parent);
   }
 
   /**
