@@ -8,9 +8,10 @@ Keyboard shortcuts interface for your website. Working with Vanilla JS, Vue, Rea
 
 ## Demo
 
+[https://ninja-keys-demo.vercel.app/](https://ninja-keys-demo.vercel.app/)
 ![Demo](./docs/demo-min.gif)
 
-## Why?
+## Motivation
 A lot of applications support that pattern, user hit <kbd>⌘</kbd>+<kbd>k</kbd> (or <kbd>ctrl</kbd>+<kbd>k</kbd>) and search UI dialog appear. 
 I've seen recently in Notion, Slack, Linear, Vercel and Agolia, but I'm sure there are plenty more.
 Also, there is a Apple Spotlight, Alfred and Raycast app that using this pattern too but different shortcuts.
@@ -22,7 +23,24 @@ In same time I have a few vue projects where it can be useful too.
 So I decided to give first shot for [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
 
 
-## Why "Ninja" ?
+## Integrations
+- [Vue Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-vue3-bps5w?file=/public/index.html)
+- [React Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-reactjs-rlv4b?file=/src/App.js)
+- [React/NextJS](https://github.com/ssleptsov/ninja-keys-demo/blob/master/components/LayoutWrapper.js#L14-L71)
+- [Static Html - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-html-cf9wy?file=/index.html)
+
+## Features
+- Keyboard navigation
+- Light and dark theme build in
+- Build-in icons support from Material font, can support custom svg icons too.
+- Nested menu. Tree or flat data structure can be used
+- Auto register your shortcuts
+- Root search, for example, if search "Dark" it will find it within the "Theme" submenu
+- CSS variable to customize the view
+- Customizable hotkeys to open/close and etc. Choose what fit your website more.
+
+
+## Why name "Ninja" name?
 Because it appears from nowhere and executes any actions quickly.
 Or because it allows your users to become keyboard ninja's 🙃
 
@@ -32,7 +50,7 @@ npm i ninja-keys
 ```
 Import if you are using webpack, rollup, vite or other build system.
 ```js
-import from 'ninja-keys';
+import 'ninja-keys';
 ```
 
 ## Install from CDN
@@ -41,8 +59,10 @@ Mostly for usage in HTML/JS without build system.
 <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
 ```
 or inside your module scripts
-```js
-import {NinjaKeys} from 'https://unpkg.com/ninja-keys?module';
+```html
+<script type="module">
+  import {NinjaKeys} from 'https://unpkg.com/ninja-keys?module';
+</script>
 ```
 
 ### Usage
@@ -177,8 +197,8 @@ If you need more style control, use css variable below.
 ### CSS variables
 | Name                               | Default                            |
 |------------------------------------|------------------------------------|
-| --ninja-width                     | 640px;                             |
-| --ninja-backdrop-filter            | saturate(180%) blur(2px);          |
+| --ninja-width                     | 640px;                              |
+| --ninja-backdrop-filter            | none;                              |
 | --ninja-overflow-background        | rgba(255, 255, 255, 0.5);          |
 | --ninja-text-color                 |  rgb(60, 65, 73);                  |
 | --ninja-font-size                  | 16px;                              |
