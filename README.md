@@ -40,7 +40,7 @@ So I decided to give first shot for [Web Components](https://open-wc.org/) and [
 - Customizable hotkeys to open/close and etc. Choose what fit your website more.
 
 
-## Why name "Ninja" name?
+## Why "Ninja" name?
 Because it appears from nowhere and executes any actions quickly.
 Or because it allows your users to become keyboard ninja's 🙃
 
