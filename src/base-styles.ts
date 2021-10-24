@@ -3,7 +3,7 @@ import {css} from 'lit';
 export const baseStyles = css`
   :host {
     --ninja-width: 640px;
-    --ninja-backdrop-filter: saturate(180%) blur(2px);
+    --ninja-backdrop-filter: none;
     --ninja-overflow-background: rgba(255, 255, 255, 0.5);
     --ninja-text-color: rgb(60, 65, 73);
     --ninja-font-size: 16px;
@@ -32,7 +32,7 @@ export const baseStyles = css`
   }
 
   :host(.dark) {
-    --ninja-backdrop-filter: saturate(180%) blur(2px);
+    --ninja-backdrop-filter: none;
     --ninja-overflow-background: rgba(0, 0, 0, 0.7);
     --ninja-text-color: #7d7d7d;
 

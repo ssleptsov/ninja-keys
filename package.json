@@ -1,10 +1,14 @@
 {
   "name": "ninja-keys",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Ninja Keys",
   "main": "dist/ninja-keys.js",
   "module": "dist/ninja-keys.js",
   "type": "module",
+  "exports": {
+    ".": "./dist/ninja-keys.js",
+    "./ninja-header": "./dist/ninja-header.js"
+  },
   "scripts": {
     "start": "npm run build && concurrently -k -r  \"npm run serve\" \"npm run build:watch\"",
     "build": "tsc",

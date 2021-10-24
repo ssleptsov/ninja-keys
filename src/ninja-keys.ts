@@ -91,6 +91,9 @@ export class NinjaKeys extends LitElement {
     this._bump = true;
     this.visible = true;
     this._headerRef.value!.focusSearch();
+    if (this._actionMatches.length > 0) {
+      this._selected = this._actionMatches[0];
+    }
     this.setParent(options.parent);
   }
 
