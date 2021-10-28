@@ -177,15 +177,44 @@ Array of `INinjaAction` - interface properties below
 ## Methods
 | Name      | Arg                 | Description                                         |
 |-----------|---------------------|-----------------------------------------------------|
-| open      | { parent?: string } | Open menu with parent, if null them open root menu  |
-| close     |                     | Close menu                                          |
-| setParent | parent?: string     | Navigate to parent menu                             |
+| `open`      | { parent?: string } | Open menu with parent, if null them open root menu  |
+| `close`     |                     | Close menu                                          |
+| `setParent` | parent?: string     | Navigate to parent menu                             |
 #### Example
 ```js
 const ninja = document.querySelector('ninja-keys');
 ninja.open() 
 // or
 ninja.open({ parent: 'Theme' })
+```
+
+### Events
+Component wide events
+
+| Name                               | Description                         | Payload |
+|------------------------------------|-------------------------------------| ------- |
+| `change`                         | Emitted when on each change of search input | `{ detail: { search: string, actions: Array<NinjaAction> } }` |
+| `selected`                       | Emitted when on user selected action or on submit of input | `{ detail: { search: string, action: NinjaAction or undefined }}` |
+
+Both `handler` of action and component event `selected` emitted when user submit form or select item.
+
+But event `selected` can be used to handle edge cases, it's not recommended to write each action logic here, better to use action `handler` property.
+
+For example, user enter search query and there is empty list, listening to this event you can handle that.
+
+```js
+ninja.addEventListener('change', (event) => {
+  console.log('ninja on change', event.detail);
+  // detail = {search: 'your search query', actions: Array<NinjaAction>}
+})
+ninja.addEventListener('selected', (event) => {
+  console.log('ninja on selected', event.detail);
+  // detail = {search: 'your search query', action: NinjaAction | undefined }
+  if (event.detail.action){
+  // perform API search for example
+  }
+   
+})
 ```
 
 ## Themes
@@ -223,6 +252,33 @@ If you need more style control, use css variable below.
 ```css
 ninja-keys {
   --ninja-width: 400px;
+}
+```
+
+### CSS Shadow Parts
+Allowing you to style spesific elemtents from your style.
+Because styles encapsulated by Shadow DOM, it will be annoying to create css variables for all properties.
+That's why you can use `::part` to make custom look of component.
+It's supported by [all modern browsers](https://caniuse.com/mdn-css_selectors_part)
+
+| Name                               | Description                         |
+|------------------------------------|-------------------------------------|
+| actions-list                       | Element that wraps all child elements. |
+| ninja-action                       | Single action                       |
+| ninja-selected                     | Selected action                    |
+
+#### Example style using parts
+```css
+ninja-keys::part(actions-list) {
+  padding: 8px;
+}
+ninja-keys::part(ninja-action) {
+  border-radius: 8px;
+  border-left: none;
+}
+
+ninja-keys::part(ninja-selected) {
+  background: rgba(51, 51, 51, 0.1);
 }
 ```
 
