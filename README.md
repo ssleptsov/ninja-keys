@@ -28,6 +28,7 @@ So I decided to give first shot for [Web Components](https://open-wc.org/) and [
 - [React Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-reactjs-rlv4b?file=/src/App.js)
 - [React/NextJS](https://github.com/ssleptsov/ninja-keys-demo/blob/master/components/LayoutWrapper.js#L14-L71)
 - [Static Html - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-html-cf9wy?file=/index.html)
+- [Svelte - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-svelte-r31l8)
 
 ## Features
 - Keyboard navigation
