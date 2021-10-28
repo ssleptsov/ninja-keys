@@ -1,9 +1,11 @@
 import {LitElement, html, css, } from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import {INinjaAction} from './interfaces/ininja-action';
 import {classMap} from 'lit/directives/class-map.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
 import '@material/mwc-icon';
+
+import {INinjaAction} from './interfaces/ininja-action.js';
+
 
 @customElement('ninja-action')
 export class NinjaAction extends LitElement {

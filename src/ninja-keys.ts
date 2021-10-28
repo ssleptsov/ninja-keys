@@ -1,17 +1,18 @@
 import {LitElement, html, TemplateResult, PropertyValues} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
-import hotkeys from 'hotkeys-js';
-import {classMap} from 'lit/directives/class-map.js';
-import './ninja-header';
-import './ninja-action';
-import {INinjaAction} from './interfaces/ininja-action';
 import {live} from 'lit/directives/live.js';
 import {createRef, ref} from 'lit-html/directives/ref.js';
-import {NinjaHeader} from './ninja-header';
-import {NinjaAction} from './ninja-action';
-import {footerHtml} from './ninja-footer';
-import {baseStyles} from './base-styles';
+import {classMap} from 'lit/directives/class-map.js';
+import hotkeys from 'hotkeys-js';
+
+import './ninja-header.js';
+import './ninja-action.js';
+import {INinjaAction} from './interfaces/ininja-action.js';
+import {NinjaHeader} from './ninja-header.js';
+import {NinjaAction} from './ninja-action.js';
+import {footerHtml} from './ninja-footer.js';
+import {baseStyles} from './base-styles.js';
 
 @customElement('ninja-keys')
 export class NinjaKeys extends LitElement {
