@@ -1,6 +1,6 @@
 {
   "name": "ninja-keys",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Ninja Keys",
   "main": "dist/ninja-keys.js",
   "module": "dist/ninja-keys.js",

@@ -446,7 +446,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Disable load material icons font on connect\nIf you use custom icons. \nSet this attribute to prevent load default icons font",
+              "description": "Disable load material icons font on connect\nIf you use custom icons.\nSet this attribute to prevent load default icons font",
               "attribute": "noAutoLoadMdIcons"
             },
             {
@@ -629,9 +629,10 @@
               "privacy": "private",
               "parameters": [
                 {
-                  "name": "event",
+                  "name": "action",
+                  "optional": true,
                   "type": {
-                    "text": "{detail: INinjaAction}"
+                    "text": "INinjaAction"
                   }
                 }
               ]
@@ -644,7 +645,7 @@
                 {
                   "name": "event",
                   "type": {
-                    "text": "CustomEvent"
+                    "text": "CustomEvent<{search: string}>"
                   }
                 }
               ]
@@ -661,6 +662,20 @@
                   }
                 }
               ]
+            }
+          ],
+          "events": [
+            {
+              "name": "selected",
+              "type": {
+                "text": "CustomEvent"
+              }
+            },
+            {
+              "name": "change",
+              "type": {
+                "text": "CustomEvent"
+              }
             }
           ],
           "attributes": [
@@ -760,7 +775,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "Disable load material icons font on connect\nIf you use custom icons. \nSet this attribute to prevent load default icons font",
+              "description": "Disable load material icons font on connect\nIf you use custom icons.\nSet this attribute to prevent load default icons font",
               "fieldName": "noAutoLoadMdIcons"
             },
             {
