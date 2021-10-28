@@ -10,6 +10,7 @@ export class NinjaAction extends LitElement {
   static override styles = css`
     :host {
       display: flex;
+      width: 100%;
     }
     .ninja-action {
       padding: 0.75em 1em;
@@ -19,6 +20,7 @@ export class NinjaAction extends LitElement {
       justify-content: start;
       outline: none;
       transition: color 0s ease 0s;
+      width: 100%;
     }
     .ninja-action.selected {
       cursor: pointer;
@@ -29,10 +31,6 @@ export class NinjaAction extends LitElement {
     }
     .ninja-action.selected .ninja-icon {
       color: var(--ninja-selected-text-color);
-    }
-    slot {
-      display: flex;
-      width: 100%;
     }
     .ninja-icon {
       font-size: var(--ninja-icon-size);
@@ -140,11 +138,11 @@ export class NinjaAction extends LitElement {
     };
 
     return html`
-      <slot class="ninja-action" class=${classMap(classes)}>
+      <div class="ninja-action" part="ninja-action ${this.selected ? 'ninja-selected' : ''}" class=${classMap(classes)}>
         ${icon}
         <div class="ninja-title">${this.action.title}</div>
         ${hotkey}
-      </slot>
+      </div>
     `;
   }
 }

@@ -72,10 +72,22 @@
       ninja-keys {
         --ninja-icon-size: 1em;
       }
-      
+
+      ninja-keys::part(actions-list) {
+        padding: 8px;
+      }
+
+      ninja-keys::part(ninja-action){
+        border-radius: 8px;
+        border-left: none;
+      }
+
+      ninja-keys::part(ninja-selected){
+        background: rgba(51, 51, 51, 0.1);
+      }
 
     </style>
-    <ninja-keys class="dark"> </ninja-keys>
+    <ninja-keys> </ninja-keys>
     <script>
       const ninja = document.querySelector('ninja-keys');
       ninja.data = [

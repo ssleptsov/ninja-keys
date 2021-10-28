@@ -349,7 +349,7 @@ export class NinjaKeys extends LitElement {
         actions,
         (action) => action.id,
         (action) =>
-          html`<ninja-action
+          html`<ninja-action exportparts="ninja-action,ninja-selected"
             .selected=${live(action.id === this._selected?.id)}
             .hotKeysJoinedView=${this.hotKeysJoinedView}
             @mouseover=${($event: MouseEvent) =>
@@ -368,7 +368,7 @@ export class NinjaKeys extends LitElement {
     });
 
     return html`
-      <div @click=${this._overlayClick} class=${classMap(menuClasses)}>
+      <div @click=${this._overlayClick} class=${classMap(menuClasses)} >
         <div class=${classMap(classes)} @animationend=${this._onTransitionEnd}>
           <ninja-header
             ${ref(this._headerRef)}
@@ -382,7 +382,7 @@ export class NinjaKeys extends LitElement {
           >
           </ninja-header>
           <div class="modal-body">
-            <div class="actions-list">${itemTemplates}</div>
+            <div class="actions-list" part="actions-list">${itemTemplates}</div>
           </div>
           <slot name="footer"> ${footerHtml} </slot>
         </div>
