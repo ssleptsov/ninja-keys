@@ -13,9 +13,9 @@ Keyboard shortcuts interface for your website. Working with Vanilla JS, Vue, Rea
 
 ## Motivation
 A lot of applications support that pattern, user hit <kbd>⌘</kbd>+<kbd>k</kbd> (or <kbd>ctrl</kbd>+<kbd>k</kbd>) and search UI dialog appear. 
-I've seen recently in Notion, Slack, Linear, Vercel and Agolia, but I'm sure there are plenty more.
+I've seen recently in Notion, Slack, Linear, Vercel and Algolia, but I'm sure there are plenty more.
 Also, there is a Apple Spotlight, Alfred and Raycast app that using this pattern too but different shortcuts.
-There are already some libraries but they are too framework spesific, like [larevel only](https://github.com/livewire-ui/spotlight) or [react only](https://github.com/timc1/kbar) 
+There are already some libraries but they are too framework specific, like [Laravel only](https://github.com/livewire-ui/spotlight) or [React only](https://github.com/timc1/kbar) 
 Althought, mine is not a silver bullet and if you need more framework integration, check them out too.
 
 I was needed an keyboard interface for navigation for static website without any frameworks.
@@ -148,7 +148,7 @@ Library using flat data structure inside, as in example above. But you can also 
 | openHotkey           | cmd+k,ctrl+k                | Open or close shortcut                                      |
 | navigationUpHotkey   | up,shift+tab                | Navigation up shortcuts                                     |
 | navigationDownHotkey | down,tab                    | Navigation down shortcuts                                   |
-| closeHotkey          | esc                         | Close shotcut                                               |
+| closeHotkey          | esc                         | Close shortcut                                               |
 | goBackHotkey         | backspace                   | Go back on one level if has parent menu                     |
 | selectHotkey         | enter                       | Select action and execute handler or open submenu           |
 | hotKeysJoinedView    | false                       | If exist/true will display hotkeys inside one element       |
@@ -170,7 +170,7 @@ Array of `INinjaAction` - interface properties below
 | icon     | string(optional)        | Html to render as custom icon                                                          |
 | parent   | string(optional)        | If using flat structure use id of actions to make a multilevel menu                    |
 | keywords | string(optional)        | Keywords to use for search                                                             |
-| children | Array<string>(optional) | If using flat structure then ids of child menu actions. Not requried on tree structure |
+| children | Array<string>(optional) | If using flat structure then ids of child menu actions. Not required on tree structure |
 | section  | string(optional)        | Section text. Like a header will be group with other same sections                     |
 
 ## Methods
