@@ -229,9 +229,11 @@ export class NinjaKeys extends LitElement {
           return;
         }
         event.preventDefault();
-        this._actionSelected({
-          detail: this._actionMatches[this._selectedIndex],
-        });
+        if (this._selectedIndex > -1){
+          this._actionSelected({
+            detail: this._actionMatches[this._selectedIndex],
+          });
+        }
       });
     }
 
