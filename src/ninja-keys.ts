@@ -69,11 +69,10 @@ export class NinjaKeys extends LitElement {
 
   /**
    * Disable load material icons font on connect
-   * If you use custom icons. 
+   * If you use custom icons.
    * Set this attribute to prevent load default icons font
    */
   @property({type: Boolean}) noAutoLoadMdIcons = false;
-
 
   /**
    * Array of actions
@@ -167,8 +166,8 @@ export class NinjaKeys extends LitElement {
   override connectedCallback() {
     super.connectedCallback();
 
-    if (!this.noAutoLoadMdIcons){
-      document.fonts.load("24px Material Icons", "apps").then(() => {});
+    if (!this.noAutoLoadMdIcons) {
+      document.fonts.load('24px Material Icons', 'apps').then(() => {});
     }
 
     this._registerInternalHotkeys();
@@ -229,11 +228,7 @@ export class NinjaKeys extends LitElement {
           return;
         }
         event.preventDefault();
-        if (this._selectedIndex > -1){
-          this._actionSelected({
-            detail: this._actionMatches[this._selectedIndex],
-          });
-        }
+        this._actionSelected(this._actionMatches[this._selectedIndex]);
       });
     }
 
@@ -349,12 +344,14 @@ export class NinjaKeys extends LitElement {
         actions,
         (action) => action.id,
         (action) =>
-          html`<ninja-action exportparts="ninja-action,ninja-selected"
+          html`<ninja-action
+            exportparts="ninja-action,ninja-selected"
             .selected=${live(action.id === this._selected?.id)}
             .hotKeysJoinedView=${this.hotKeysJoinedView}
-            @mouseover=${($event: MouseEvent) =>
-              this._actionFocused(action, $event)}
-            @actionsSelected=${this._actionSelected}
+            @mouseover=${(event: MouseEvent) =>
+              this._actionFocused(action, event)}
+            @actionsSelected=${(event: CustomEvent<INinjaAction>) =>
+              this._actionSelected(event.detail)}
             .action=${action}
           ></ninja-action>`
       )}`;
@@ -368,7 +365,7 @@ export class NinjaKeys extends LitElement {
     });
 
     return html`
-      <div @click=${this._overlayClick} class=${classMap(menuClasses)} >
+      <div @click=${this._overlayClick} class=${classMap(menuClasses)}>
         <div class=${classMap(classes)} @animationend=${this._onTransitionEnd}>
           <ninja-header
             ${ref(this._headerRef)}
@@ -376,7 +373,7 @@ export class NinjaKeys extends LitElement {
             .hideBreadcrumbs=${this.hideBreadcrumbs}
             .breadcrumbs=${this.breadcrumbs}
             @change=${this._handleInput}
-            @setParent=${(event: CustomEvent) =>
+            @setParent=${(event: CustomEvent<INinjaAction>) =>
               this.setParent(event.detail.parent)}
             @close=${this.close}
           >
@@ -397,17 +394,31 @@ export class NinjaKeys extends LitElement {
     return this._actionMatches.indexOf(this._selected);
   }
 
-  private _actionSelected(event: {detail: INinjaAction}) {
-    if (event.detail.children && event.detail.children?.length > 0) {
-      this._currentRoot = event.detail.id;
+  private _actionSelected(action?: INinjaAction) {
+    // fire selected event even when action is empty/not selected,
+    // so possible handle api search for example
+    this.dispatchEvent(
+      new CustomEvent('selected', {
+        detail: {search: this._search, action},
+        bubbles: true,
+        composed: true,
+      })
+    );
+
+    if (!action) {
+      return;
+    }
+
+    if (action.children && action.children?.length > 0) {
+      this._currentRoot = action.id;
       this._search = '';
     }
 
     this._headerRef.value!.setSearch('');
     this._headerRef.value!.focusSearch();
 
-    if (event.detail.handler) {
-      const result = event.detail.handler();
+    if (action.handler) {
+      const result = action.handler();
       if (!result?.keepOpen) {
         this.close();
       }
@@ -416,8 +427,16 @@ export class NinjaKeys extends LitElement {
     this._bump = true;
   }
 
-  private _handleInput(event: CustomEvent) {
+  private async _handleInput(event: CustomEvent<{search: string}>) {
     this._search = event.detail.search;
+    await this.updateComplete;
+    this.dispatchEvent(
+      new CustomEvent('change', {
+        detail: {search: this._search, actions: this._actionMatches},
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
 
   private _overlayClick(event: Event) {

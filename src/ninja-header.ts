@@ -123,8 +123,8 @@ export class NinjaHeader extends LitElement {
     this.dispatchEvent(
       new CustomEvent('change', {
         detail: {search: input.value},
-        bubbles: true,
-        composed: true,
+        bubbles: false,
+        composed: false,
       })
     );
   }
