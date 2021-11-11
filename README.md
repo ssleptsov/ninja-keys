@@ -1,6 +1,6 @@
 # Ninja Keys
 
-Keyboard shortcuts interface for your website. Working with Vanilla JS, Vue, React.
+Keyboard shortcut interface for your website that works with Vanilla JS, Vue, and React.
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys?ref=badge_shield)
 ![npm](https://img.shields.io/npm/v/ninja-keys)
@@ -12,15 +12,15 @@ Keyboard shortcuts interface for your website. Working with Vanilla JS, Vue, Rea
 ![Demo](./docs/demo-min.gif)
 
 ## Motivation
-A lot of applications support that pattern, user hit <kbd>⌘</kbd>+<kbd>k</kbd> (or <kbd>ctrl</kbd>+<kbd>k</kbd>) and search UI dialog appear. 
-I've seen recently in Notion, Slack, Linear, Vercel and Algolia, but I'm sure there are plenty more.
-Also, there is a Apple Spotlight, Alfred and Raycast app that using this pattern too but different shortcuts.
-There are already some libraries but they are too framework specific, like [Laravel only](https://github.com/livewire-ui/spotlight) or [React only](https://github.com/timc1/kbar) 
-Althought, mine is not a silver bullet and if you need more framework integration, check them out too.
+A lot of applications support a common pattern where the user hits <kbd>⌘</kbd>+<kbd>k</kbd> (or <kbd>ctrl</kbd>+<kbd>k</kbd>) and a search UI dialog appears. 
+I've recently seen this in Notion, Slack, Linear, Vercel and Algolia, but I'm sure there are plenty more.
+Apple Spotlight, Alfred and the Raycast app also have a similar pattern, but with different shortcuts.
+There are already some libraries built for this, but they are too framework specific, like [Laravel only](https://github.com/livewire-ui/spotlight) or [React only](https://github.com/timc1/kbar) 
+Nevertheless, mine is not a silver bullet and if you need more framework integration, check them out too.
 
-I was needed an keyboard interface for navigation for static website without any frameworks.
-In same time I have a few vue projects where it can be useful too.
-So I decided to give first shot for [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
+I needed a keyboard interface for navigation with static websites without any frameworks.
+At the same time, I have a few Vue projects where something like this could be useful, 
+so I decided to give it a try for [Web Components](https://open-wc.org/) and [Lit Element](https://lit.dev/).
 
 
 ## Integrations
@@ -32,18 +32,18 @@ So I decided to give first shot for [Web Components](https://open-wc.org/) and [
 
 ## Features
 - Keyboard navigation
-- Light and dark theme build in
-- Build-in icons support from Material font, can support custom svg icons too.
-- Nested menu. Tree or flat data structure can be used
+- Light and dark theme built in
+- Built-in icon support from Material font and custom svg icons
+- Nested menu - a tree or flat data structure can be used
 - Auto register your shortcuts
-- Root search, for example, if search "Dark" it will find it within the "Theme" submenu
+- Root search - for example, if you search "Dark," it will find it within the "Theme" submenu
 - CSS variable to customize the view
-- Customizable hotkeys to open/close and etc. Choose what fit your website more.
+- Customizable hotkeys to open/close etc. Choose what best fits your website.
 
 
-## Why "Ninja" name?
-Because it appears from nowhere and executes any actions quickly.
-Or because it allows your users to become keyboard ninja's 🙃
+## Why the "Ninja" name?
+Because it appears from nowhere and executes any actions quickly...
+Or because it allows your users to become keyboard ninjas 🙃
 
 ## Install from NPM 
 ```bash
@@ -55,7 +55,7 @@ import 'ninja-keys';
 ```
 
 ## Install from CDN
-Mostly for usage in HTML/JS without build system.
+Mostly for usage in HTML/JS without a build system.
 ```html
 <script type="module" src="https://unpkg.com/ninja-keys?module"></script>
 ```
@@ -68,7 +68,7 @@ or inside your module scripts
 
 ### Usage
 
-Add tag to your html.
+Add the tag to your HTML.
 
 ```html
 <ninja-keys> </ninja-keys>
@@ -125,7 +125,7 @@ Add tag to your html.
   ];
 </script>
 ```
-Library using flat data structure inside, as in example above. But you can also use tree structure as below:
+Library using flat data structure inside, as in the example above. But you can also use a tree structure as below:
 ```js
 {
   id: 'Theme',
@@ -198,9 +198,9 @@ Component wide events
 
 Both `handler` of action and component event `selected` emitted when user submit form or select item.
 
-But event `selected` can be used to handle edge cases, it's not recommended to write each action logic here, better to use action `handler` property.
+But event `selected` can be used to handle edge cases, so it's not recommended to write each action logic here. It’s better to use the action `handler` property.
 
-For example, user enter search query and there is empty list, listening to this event you can handle that.
+For example, if a user enters a search query and there is an empty list, listening to this event you can handle that.
 
 ```js
 ninja.addEventListener('change', (event) => {
@@ -218,12 +218,12 @@ ninja.addEventListener('selected', (event) => {
 ```
 
 ## Themes
-Component support dark theme out-of-box. You just need to add a class. 
+Component supports a dark theme out-of-box. You just need to add a class. 
 ```html
 <ninja-keys class="dark"></ninja-keys>
 ```
 
-If you need more style control, use css variable below.
+If you need more style control, use any of the CSS variables below.
 ### CSS variables
 | Name                               | Default                            |
 |------------------------------------|------------------------------------|
@@ -256,9 +256,9 @@ ninja-keys {
 ```
 
 ### CSS Shadow Parts
-Allowing you to style spesific elemtents from your style.
-Because styles encapsulated by Shadow DOM, it will be annoying to create css variables for all properties.
-That's why you can use `::part` to make custom look of component.
+Allowing you to style specific elements from your style.
+Because styles are encapsulated by Shadow DOM, it will be annoying to create css variables for all properties.
+That's why you can use `::part` to make a custom look for the component.
 It's supported by [all modern browsers](https://caniuse.com/mdn-css_selectors_part)
 
 | Name                               | Description                         |
@@ -283,16 +283,16 @@ ninja-keys::part(ninja-selected) {
 ```
 
 ### Icons
-By default component using icons from [https://fonts.google.com/icons](https://fonts.google.com/icons)
+By default, components use icons from [https://fonts.google.com/icons](https://fonts.google.com/icons)
 
-For example, you can just set `mdIcon` to `light_mode` to render sun icon.
+For example, you can just set `mdIcon` to `light_mode` to render a sun icon.
 
-To add Material icons for website you need to add to html, for example
+To add Material icons for your website, you need to add them to your HTML, for example
 ```html
 <link href="https://fonts.googleapis.com/css?family=Material+Icons&display=block" rel="stylesheet">
 ```
 
-If want custom icons, you can use `svg` or `img` to insert it with `icon` property for action with `ninja-icon` class.
+If you want custom icons, you can use `svg` or `img` to insert it with an `icon` property for action with `ninja-icon` class.
 Example:
 ```js
 {
@@ -303,7 +303,7 @@ Example:
   section: 'Projects',
 },
 ```
-Also, you can change width and font using css variables for it
+You can also change the width and font using CSS variables
 ```css
 ninja-keys {
   --ninja-icon-size: 1em;
@@ -314,7 +314,7 @@ ninja-keys {
 ### Change or hide footer
 ```html
 <ninja-keys> 
-  <slot name="footer">Must custom footer or empty to hide</slot>
+  <slot name="footer">Must use a custom footer or empty to hide</slot>
 </ninja-keys>
 ```
 
@@ -344,3 +344,5 @@ Copyright (c) [Sergei Sleptsov](https://sergei.ws) <hey@sergei.ws>
 Licensed under [the MIT license](./LICENSE).
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fssleptsov%2Fninja-keys?ref=badge_large)
+
+
