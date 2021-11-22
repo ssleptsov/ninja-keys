@@ -116,6 +116,7 @@ export class NinjaKeys extends LitElement {
     } else {
       this._currentRoot = parent;
     }
+    this._selected = undefined;
     this._search = '';
     this._headerRef.value!.setSearch('');
   }
@@ -176,6 +177,9 @@ export class NinjaKeys extends LitElement {
 
   private _flattern(members: INinjaAction[], parent?: string): INinjaAction[] {
     let children = [] as Array<any>;
+    if (!members) {
+      members = [];
+    }
     return members
       .map((mem) => {
         const alreadyFlatternByUser =
@@ -201,13 +205,14 @@ export class NinjaKeys extends LitElement {
   override update(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('data') && !this.disableHotkeys) {
       this._flatData = this._flattern(this.data);
+
       this._flatData
         .filter((action) => !!action.hotkey)
         .forEach((action) => {
           hotkeys(action.hotkey!, (event) => {
             event.preventDefault();
             if (action.handler) {
-              action.handler();
+              action.handler(action);
             }
           });
         });
@@ -314,7 +319,7 @@ export class NinjaKeys extends LitElement {
       modal: true,
     };
 
-    this._actionMatches = this._flatData.filter((action) => {
+    const actionMatches = this._flatData.filter((action) => {
       const regex = new RegExp(this._search, 'gi');
       const matcher =
         action.title.match(regex) || action.keywords?.match(regex);
@@ -327,18 +332,20 @@ export class NinjaKeys extends LitElement {
       return action.parent === this._currentRoot && matcher;
     });
 
+    const sections = actionMatches.reduce(
+      (entryMap, e) =>
+        entryMap.set(e.section, [...(entryMap.get(e.section) || []), e]),
+      new Map()
+    );
+
+    this._actionMatches = [...sections.values()].flat();
+
     if (this._actionMatches.length > 0 && this._selectedIndex === -1) {
       this._selected = this._actionMatches[0];
     }
     if (this._actionMatches.length === 0) {
       this._selected = undefined;
     }
-
-    const sections = this._actionMatches.reduce(
-      (entryMap, e) =>
-        entryMap.set(e.section, [...(entryMap.get(e.section) || []), e]),
-      new Map()
-    );
 
     const actionsList = (actions: INinjaAction[]) =>
       html` ${repeat(
@@ -419,7 +426,7 @@ export class NinjaKeys extends LitElement {
     this._headerRef.value!.focusSearch();
 
     if (action.handler) {
-      const result = action.handler();
+      const result = action.handler(action);
       if (!result?.keepOpen) {
         this.close();
       }
