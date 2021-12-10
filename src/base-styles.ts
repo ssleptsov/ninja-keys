@@ -28,6 +28,8 @@ export const baseStyles = css`
 
     --ninja-footer-background: rgba(242, 242, 242, 0.4);
 
+    --ninja-placeholder-color: #8e8e8e;
+
     font-size: var(--ninja-font-size);
   }
 

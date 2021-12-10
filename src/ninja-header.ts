@@ -22,6 +22,9 @@ export class NinjaHeader extends LitElement {
       color: var(--ninja-text-color);
       outline: none;
     }
+    .search::placeholder {
+      color: var(--ninja-placeholder-color);
+    }
     .breadcrumb-list {
       padding: 1em 4em 0 1em;
       display: flex;
@@ -93,8 +96,9 @@ export class NinjaHeader extends LitElement {
 
     return html`
       ${breadcrumbs}
-      <div class="search-wrapper">
+      <div part="ninja-input-wrapper" class="search-wrapper">
         <input
+          part="ninja-input"
           type="text"
           id="search"
           spellcheck="false"

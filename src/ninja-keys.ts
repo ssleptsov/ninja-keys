@@ -376,6 +376,7 @@ export class NinjaKeys extends LitElement {
       <div @click=${this._overlayClick} class=${classMap(menuClasses)}>
         <div class=${classMap(classes)} @animationend=${this._onTransitionEnd}>
           <ninja-header
+            exportparts="ninja-input,ninja-input-wrapper"
             ${ref(this._headerRef)}
             .placeholder=${this.placeholder}
             .hideBreadcrumbs=${this.hideBreadcrumbs}

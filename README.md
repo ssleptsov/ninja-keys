@@ -246,6 +246,7 @@ If you need more style control, use any of the CSS variables below.
 |     --ninja-actions-height    | 300px;                                             |
 |     --ninja-group-text-color  |  rgb(144, 149, 157);                               |
 |     --ninja-footer-background | rgba(242, 242, 242, 0.4);                          |
+| --ninja-placeholder-color | #8e8e8e |
 
 
 #### Example
@@ -266,6 +267,8 @@ It's supported by [all modern browsers](https://caniuse.com/mdn-css_selectors_pa
 | actions-list                       | Element that wraps all child elements. |
 | ninja-action                       | Single action                       |
 | ninja-selected                     | Selected action                    |
+| ninja-input                        | Input element                      |
+| ninja-input-wrapper                | Wrapper element around div, useful for advanced styles|
 
 #### Example style using parts
 ```css
@@ -279,6 +282,19 @@ ninja-keys::part(ninja-action) {
 
 ninja-keys::part(ninja-selected) {
   background: rgba(51, 51, 51, 0.1);
+}
+
+
+ninja-keys::part(ninja-input) {
+  color: #14b8a6;
+}
+
+ninja-keys::part(ninja-input)::placeholder {
+  color: #f43f5e;
+}
+
+ninja-keys::part(ninja-input-wrapper) {
+  background: rgba(244, 63, 93, 0.3);
 }
 ```
 
