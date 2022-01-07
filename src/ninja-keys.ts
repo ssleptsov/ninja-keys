@@ -78,7 +78,16 @@ export class NinjaKeys extends LitElement {
   /**
    * Array of actions
    */
-  @property({type: Array}) data = [] as Array<INinjaAction>;
+  @property({
+    type: Array,
+    hasChanged() {
+      // Forced to trigger changed event always.
+      // Because of a lot of framework pattern wrap object with an Observer, like vue2.
+      // That's why object passed to web component always same and no render triggered. Issue #9
+      return true;
+    },
+  })
+  data = [] as Array<INinjaAction>;
 
   /**
    * Public methods
@@ -353,7 +362,7 @@ export class NinjaKeys extends LitElement {
         (action) => action.id,
         (action) =>
           html`<ninja-action
-            exportparts="ninja-action,ninja-selected"
+            exportparts="ninja-action,ninja-selected,ninja-icon"
             .selected=${live(action.id === this._selected?.id)}
             .hotKeysJoinedView=${this.hotKeysJoinedView}
             @mouseover=${(event: MouseEvent) =>

@@ -115,7 +115,7 @@ export class NinjaAction extends LitElement {
   override render() {
     let icon;
     if (this.action.mdIcon){
-      icon = html`<mwc-icon class="ninja-icon">${this.action.mdIcon}</mwc-icon>`
+      icon = html`<mwc-icon part="ninja-icon" class="ninja-icon">${this.action.mdIcon}</mwc-icon>`
     } else if (this.action.icon){
       icon = unsafeHTML(this.action.icon || '');
     }
