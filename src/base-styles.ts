@@ -68,6 +68,7 @@ export const baseStyles = css`
     background: var(--ninja-overflow-background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-backdrop-filter: var(--ninja-backdrop-filter);
     backdrop-filter: var(--ninja-backdrop-filter);
     text-align: left;
     color: var(--ninja-text-color);
