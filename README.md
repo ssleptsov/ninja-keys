@@ -24,7 +24,8 @@ so I decided to give it a try for [Web Components](https://open-wc.org/) and [Li
 
 
 ## Integrations
-- [Vue Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-vue3-bps5w?file=/public/index.html)
+- [Vue 3 Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-vue3-bps5w?file=/public/index.html)
+- [Vue 2 Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-vue2-b129z)
 - [React Example - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-reactjs-rlv4b?file=/src/App.js)
 - [React/NextJS](https://github.com/ssleptsov/ninja-keys-demo/blob/master/components/LayoutWrapper.js#L14-L71)
 - [Static Html - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-html-cf9wy?file=/index.html)
