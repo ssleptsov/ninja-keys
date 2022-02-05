@@ -331,7 +331,7 @@ ninja-keys {
 ### Change or hide footer
 ```html
 <ninja-keys> 
-  <slot name="footer">Must use a custom footer or empty to hide</slot>
+  <div slot="footer">You can use a custom footer or empty div to hide it</div>
 </ninja-keys>
 ```
 
