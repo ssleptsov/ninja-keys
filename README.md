@@ -131,7 +131,7 @@ Library using flat data structure inside, as in the example above. But you can a
 {
   id: 'Theme',
   children: [
-    { id: ':ight' title: 'light_mode', },
+    { id: 'light' title: 'light_mode', },
     { id: 'System Theme',
       children: [
         { title: 'Sub item 1' },
