@@ -178,7 +178,7 @@ Array of `INinjaAction` - interface properties below
 ## Methods
 | Name      | Arg                 | Description                                         |
 |-----------|---------------------|-----------------------------------------------------|
-| `open`      | { parent?: string } | Open menu with parent, if null them open root menu  |
+| `open`      | { parent?: string } | Open menu with parent, if null then open root menu  |
 | `close`     |                     | Close menu                                          |
 | `setParent` | parent?: string     | Navigate to parent menu                             |
 #### Example
