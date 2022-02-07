@@ -131,7 +131,7 @@ Library using flat data structure inside, as in the example above. But you can a
 {
   id: 'Theme',
   children: [
-    { id: ':ight' title: 'light_mode', },
+    { id: 'light' title: 'light_mode', },
     { id: 'System Theme',
       children: [
         { title: 'Sub item 1' },
@@ -178,7 +178,7 @@ Array of `INinjaAction` - interface properties below
 ## Methods
 | Name      | Arg                 | Description                                         |
 |-----------|---------------------|-----------------------------------------------------|
-| `open`      | { parent?: string } | Open menu with parent, if null them open root menu  |
+| `open`      | { parent?: string } | Open menu with parent, if null then open root menu  |
 | `close`     |                     | Close menu                                          |
 | `setParent` | parent?: string     | Navigate to parent menu                             |
 #### Example
