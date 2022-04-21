@@ -31,6 +31,8 @@ export const baseStyles = css`
     --ninja-placeholder-color: #8e8e8e;
 
     font-size: var(--ninja-font-size);
+
+    --ninja-z-index: 1;
   }
 
   :host(.dark) {
@@ -59,7 +61,7 @@ export const baseStyles = css`
   .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: var(--ninja-z-index);
     left: 0;
     top: 0;
     width: 100%;

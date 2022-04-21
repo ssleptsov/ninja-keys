@@ -249,7 +249,7 @@ If you need more style control, use any of the CSS variables below.
 |     --ninja-group-text-color  |  rgb(144, 149, 157);                               |
 |     --ninja-footer-background | rgba(242, 242, 242, 0.4);                          |
 | --ninja-placeholder-color | #8e8e8e |
-
+| --ninja-z-index | 1 |
 
 #### Example
 ```css
