@@ -21,6 +21,7 @@ export class NinjaHeader extends LitElement {
       caret-color: var(--ninja-accent-color);
       color: var(--ninja-text-color);
       outline: none;
+      font-family: var(--ninja-font-family);
     }
     .search::placeholder {
       color: var(--ninja-placeholder-color);
@@ -45,6 +46,7 @@ export class NinjaHeader extends LitElement {
       color: var(--ninja-secondary-text-color);
       margin-right: 0.5em;
       outline: none;
+      font-family: var(--ninja-font-family);
     }
 
     .search-wrapper {
