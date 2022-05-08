@@ -84,7 +84,7 @@ Add the tag to your HTML.
       id: 'Projects',
       title: 'Open Projects',
       hotkey: 'ctrl+N',
-      icon: 'apps',
+      mdIcon: 'apps',
       section: 'Projects',
       handler: () => {
         // it's auto register above hotkey with this handler
@@ -94,7 +94,7 @@ Add the tag to your HTML.
     {
       id: 'Theme',
       title: 'Change theme...',
-      icon: 'desktop_windows',
+      mdIcon: 'desktop_windows',
       children: ['Light Theme', 'Dark Theme', 'System Theme'],
       hotkey: 'ctrl+T',
       handler: () => {
@@ -107,7 +107,7 @@ Add the tag to your HTML.
     {
       id: 'Light Theme',
       title: 'Change theme to Light',
-      icon: 'light_mode',
+      mdIcon: 'light_mode',
       parent: 'Theme',
       handler: () => {
         // simple handler
@@ -117,7 +117,7 @@ Add the tag to your HTML.
     {
       id: 'Dark Theme',
       title: 'Change theme to Dark',
-      icon: 'dark_mode',
+      mdIcon: 'dark_mode',
       parent: 'Theme',
       handler: () => {
         // simple handler
