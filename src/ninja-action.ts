@@ -1,11 +1,11 @@
-import {LitElement, html, css, } from 'lit';
+import {LitElement, html, css} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {classMap} from 'lit/directives/class-map.js';
 import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import {join} from 'lit/directives/join.js';
 import '@material/mwc-icon';
 
 import {INinjaAction} from './interfaces/ininja-action.js';
-
 
 @customElement('ninja-action')
 export class NinjaAction extends LitElement {
@@ -54,11 +54,14 @@ export class NinjaAction extends LitElement {
       text-overflow: ellipsis;
     }
     .ninja-hotkeys {
-      margin-left: 0.5em;
       flex-shrink: 0;
       width: min-content;
+      display: flex;
     }
 
+    .ninja-hotkeys kbd {
+      font-family: inherit;
+    }
     .ninja-hotkey {
       background: var(--ninja-secondary-background-color);
       padding: 0.06em 0.25em;
@@ -66,7 +69,14 @@ export class NinjaAction extends LitElement {
       text-transform: capitalize;
       color: var(--ninja-secondary-text-color);
       font-size: 0.75em;
+      font-family: inherit;
+    }
+
+    .ninja-hotkey + .ninja-hotkey {
       margin-left: 0.5em;
+    }
+    .ninja-hotkeys + .ninja-hotkeys {
+      margin-left: 1em;
     }
   `;
 
@@ -80,7 +90,7 @@ export class NinjaAction extends LitElement {
    * Display hotkey as separate buttons on UI or as is
    */
   @property({type: Boolean})
-  hotKeysJoinedView = false;
+  hotKeysJoinedView = true;
 
   /**
    * Scroll to show element
@@ -114,9 +124,11 @@ export class NinjaAction extends LitElement {
 
   override render() {
     let icon;
-    if (this.action.mdIcon){
-      icon = html`<mwc-icon part="ninja-icon" class="ninja-icon">${this.action.mdIcon}</mwc-icon>`
-    } else if (this.action.icon){
+    if (this.action.mdIcon) {
+      icon = html`<mwc-icon part="ninja-icon" class="ninja-icon"
+        >${this.action.mdIcon}</mwc-icon
+      >`;
+    } else if (this.action.icon) {
       icon = unsafeHTML(this.action.icon || '');
     }
 
@@ -126,11 +138,25 @@ export class NinjaAction extends LitElement {
     let hotkey;
     if (this.action.hotkey) {
       if (this.hotKeysJoinedView) {
-        hotkey = html`<div class="ninja-hotkey">${this.action.hotkey}</div>`;
+        hotkey = this.action.hotkey.split(',').map((hotkeys) => {
+          const keys = hotkeys.split('+');
+          const joinedKeys = html`${join(
+            keys.map((key) => html`<kbd>${key}</kbd>`),
+            '+'
+          )}`;
+
+          return html`<div class="ninja-hotkey ninja-hotkeys">
+            ${joinedKeys}
+          </div>`;
+        });
       } else {
-        hotkey = this.action.hotkey
-          .split('+')
-          .map((key) => html`<div class="ninja-hotkey">${key}</div>`);
+        hotkey = this.action.hotkey.split(',').map((hotkeys) => {
+          const keys = hotkeys.split('+');
+          const keyElements = keys.map(
+            (key) => html`<kbd class="ninja-hotkey">${key}</kbd>`
+          );
+          return html`<kbd class="ninja-hotkeys">${keyElements}</kbd>`;
+        });
       }
     }
 
@@ -140,7 +166,11 @@ export class NinjaAction extends LitElement {
     };
 
     return html`
-      <div class="ninja-action" part="ninja-action ${this.selected ? 'ninja-selected' : ''}" class=${classMap(classes)}>
+      <div
+        class="ninja-action"
+        part="ninja-action ${this.selected ? 'ninja-selected' : ''}"
+        class=${classMap(classes)}
+      >
         ${icon}
         <div class="ninja-title">${this.action.title}</div>
         ${hotkey}
