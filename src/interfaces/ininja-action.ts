@@ -10,3 +10,6 @@ export interface INinjaAction {
   children?: string[];
   section?: string;
 }
+export interface INinjaActionData extends Omit<INinjaAction, 'children'> {
+  children?: (INinjaActionData | string)[];
+}
