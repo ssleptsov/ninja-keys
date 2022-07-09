@@ -8,7 +8,7 @@ import hotkeys from 'hotkeys-js';
 
 import './ninja-header.js';
 import './ninja-action.js';
-import {INinjaAction} from './interfaces/ininja-action.js';
+import {INinjaAction, INinjaActionData} from './interfaces/ininja-action.js';
 import {NinjaHeader} from './ninja-header.js';
 import {NinjaAction} from './ninja-action.js';
 import {footerHtml} from './ninja-footer.js';
@@ -189,37 +189,36 @@ export class NinjaKeys extends LitElement {
     this._unregisterInternalHotkeys();
   }
 
-  private _flattern(members: INinjaAction[], parent?: string): INinjaAction[] {
-    let children = [] as Array<any>;
-    if (!members) {
-      members = [];
-    }
-    return members
-      .map((mem) => {
-        const alreadyFlatternByUser =
-          mem.children &&
-          mem.children.some((value: any) => {
-            return typeof value == 'string';
-          });
-        const m = {...mem, parent: mem.parent || parent};
-        if (alreadyFlatternByUser) {
-          return m;
-        } else {
-          if (m.children && m.children.length) {
-            parent = mem.id;
-            children = [...children, ...m.children];
-          }
-          m.children = m.children ? m.children.map((c: any) => c.id) : [];
-          return m;
+  private _flatten(data: INinjaActionData[]) {
+    const flattenedTree: INinjaActionData[] = [];
+
+    traverse(data);
+
+    function traverse(nodes: INinjaActionData[], parent?: string) {
+      nodes.forEach((node) => {
+        if (parent) node.parent = parent;
+        if (node.children) {
+          const nextNodes = [
+            ...node.children.filter((n) => typeof n !== 'string'),
+          ] as INinjaActionData[];
+
+          node.children = node.children.map((child) =>
+            typeof child === 'string' ? child : child.id
+          );
+
+          traverse(nextNodes, node.id);
         }
-      })
-      .concat(children.length ? this._flattern(children, parent) : children);
+
+        flattenedTree.push(node);
+      });
+    }
+
+    return flattenedTree as INinjaAction[];
   }
 
   override update(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('data') && !this.disableHotkeys) {
-      this._flatData = this._flattern(this.data);
-
+      this._flatData = this._flatten(this.data);
       this._flatData
         .filter((action) => !!action.hotkey)
         .forEach((action) => {
@@ -304,30 +303,29 @@ export class NinjaKeys extends LitElement {
 
   private _unregisterInternalHotkeys() {
     if (this.openHotkey) {
-      hotkeys.unbind(this.openHotkey)
+      hotkeys.unbind(this.openHotkey);
     }
 
     if (this.selectHotkey) {
-      hotkeys.unbind(this.selectHotkey)
+      hotkeys.unbind(this.selectHotkey);
     }
 
     if (this.goBackHotkey) {
-      hotkeys.unbind(this.goBackHotkey)
+      hotkeys.unbind(this.goBackHotkey);
     }
 
     if (this.navigationDownHotkey) {
-      hotkeys.unbind(this.navigationDownHotkey)
+      hotkeys.unbind(this.navigationDownHotkey);
     }
 
     if (this.navigationUpHotkey) {
-      hotkeys.unbind(this.navigationUpHotkey)
+      hotkeys.unbind(this.navigationUpHotkey);
     }
 
     if (this.closeHotkey) {
-      hotkeys.unbind(this.closeHotkey)
+      hotkeys.unbind(this.closeHotkey);
     }
   }
-
 
   private _actionFocused(index: INinjaAction, $event: MouseEvent) {
     // this.selectedIndex = index;
