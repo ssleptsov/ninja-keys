@@ -303,30 +303,29 @@ export class NinjaKeys extends LitElement {
 
   private _unregisterInternalHotkeys() {
     if (this.openHotkey) {
-      hotkeys.unbind(this.openHotkey)
+      hotkeys.unbind(this.openHotkey);
     }
 
     if (this.selectHotkey) {
-      hotkeys.unbind(this.selectHotkey)
+      hotkeys.unbind(this.selectHotkey);
     }
 
     if (this.goBackHotkey) {
-      hotkeys.unbind(this.goBackHotkey)
+      hotkeys.unbind(this.goBackHotkey);
     }
 
     if (this.navigationDownHotkey) {
-      hotkeys.unbind(this.navigationDownHotkey)
+      hotkeys.unbind(this.navigationDownHotkey);
     }
 
     if (this.navigationUpHotkey) {
-      hotkeys.unbind(this.navigationUpHotkey)
+      hotkeys.unbind(this.navigationUpHotkey);
     }
 
     if (this.closeHotkey) {
-      hotkeys.unbind(this.closeHotkey)
+      hotkeys.unbind(this.closeHotkey);
     }
   }
-
 
   private _actionFocused(index: INinjaAction, $event: MouseEvent) {
     // this.selectedIndex = index;
