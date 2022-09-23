@@ -1,3 +1,4 @@
+import escapeStringRegexp from 'escape-string-regexp';
 import {LitElement, html, TemplateResult, PropertyValues} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 import {repeat} from 'lit/directives/repeat.js';
@@ -304,30 +305,29 @@ export class NinjaKeys extends LitElement {
 
   private _unregisterInternalHotkeys() {
     if (this.openHotkey) {
-      hotkeys.unbind(this.openHotkey)
+      hotkeys.unbind(this.openHotkey);
     }
 
     if (this.selectHotkey) {
-      hotkeys.unbind(this.selectHotkey)
+      hotkeys.unbind(this.selectHotkey);
     }
 
     if (this.goBackHotkey) {
-      hotkeys.unbind(this.goBackHotkey)
+      hotkeys.unbind(this.goBackHotkey);
     }
 
     if (this.navigationDownHotkey) {
-      hotkeys.unbind(this.navigationDownHotkey)
+      hotkeys.unbind(this.navigationDownHotkey);
     }
 
     if (this.navigationUpHotkey) {
-      hotkeys.unbind(this.navigationUpHotkey)
+      hotkeys.unbind(this.navigationUpHotkey);
     }
 
     if (this.closeHotkey) {
-      hotkeys.unbind(this.closeHotkey)
+      hotkeys.unbind(this.closeHotkey);
     }
   }
-
 
   private _actionFocused(index: INinjaAction, $event: MouseEvent) {
     // this.selectedIndex = index;
@@ -361,7 +361,8 @@ export class NinjaKeys extends LitElement {
     };
 
     const actionMatches = this._flatData.filter((action) => {
-      const regex = new RegExp(this._search, 'gi');
+      const escaped = escapeStringRegexp(this._search);
+      const regex = new RegExp(escaped, 'gi');
       const matcher =
         action.title.match(regex) || action.keywords?.match(regex);
 

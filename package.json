@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@material/mwc-icon": "0.25.3",
+    "escape-string-regexp": "5.0.0",
     "hotkeys-js": "3.8.7",
     "lit": "2.2.6"
   },
