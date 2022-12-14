@@ -121,7 +121,7 @@ export class NinjaHeader extends LitElement {
   }
 
   focusSearch() {
-    requestAnimationFrame(() => this._inputRef.value!.focus());
+    requestAnimationFrame(() => (this._inputRef && this._inputRef.value!.focus()));
   }
 
   private _handleInput(event: Event) {
