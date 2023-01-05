@@ -1,18 +1,18 @@
-import {LitElement, html, TemplateResult, PropertyValues} from 'lit';
-import {customElement, property, state} from 'lit/decorators.js';
-import {repeat} from 'lit/directives/repeat.js';
-import {live} from 'lit/directives/live.js';
-import {createRef, ref} from 'lit-html/directives/ref.js';
-import {classMap} from 'lit/directives/class-map.js';
+import { LitElement, html, TemplateResult, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+import { repeat } from 'lit/directives/repeat.js';
+import { live } from 'lit/directives/live.js';
+import { createRef, ref } from 'lit-html/directives/ref.js';
+import { classMap } from 'lit/directives/class-map.js';
 import hotkeys from 'hotkeys-js';
 
 import './ninja-header.js';
 import './ninja-action.js';
-import {INinjaAction} from './interfaces/ininja-action.js';
-import {NinjaHeader} from './ninja-header.js';
-import {NinjaAction} from './ninja-action.js';
-import {footerHtml} from './ninja-footer.js';
-import {baseStyles} from './base-styles.js';
+import { INinjaAction } from './interfaces/ininja-action.js';
+import { NinjaHeader } from './ninja-header.js';
+import { NinjaAction } from './ninja-action.js';
+import { footerHtml } from './ninja-footer.js';
+import { baseStyles } from './base-styles.js';
 
 @customElement('ninja-keys')
 export class NinjaKeys extends LitElement {
@@ -21,17 +21,17 @@ export class NinjaKeys extends LitElement {
   /**
    * Search placeholder text
    */
-  @property({type: String}) placeholder = 'Type a command or search...';
+  @property({ type: String }) placeholder = 'Type a command or search...';
 
   /**
    * If true will register all hotkey for all actions
    */
-  @property({type: Boolean}) disableHotkeys = false;
+  @property({ type: Boolean }) disableHotkeys = false;
 
   /**
    * Show or hide breadcrumbs on header
    */
-  @property({type: Boolean}) hideBreadcrumbs = false;
+  @property({ type: Boolean }) hideBreadcrumbs = false;
 
   /**
    * Open or hide shorcut
@@ -66,14 +66,14 @@ export class NinjaKeys extends LitElement {
   /**
    * Show or hide breadcrumbs on header
    */
-  @property({type: Boolean}) hotKeysJoinedView = false;
+  @property({ type: Boolean }) hotKeysJoinedView = false;
 
   /**
    * Disable load material icons font on connect
    * If you use custom icons.
    * Set this attribute to prevent load default icons font
    */
-  @property({type: Boolean}) noAutoLoadMdIcons = false;
+  @property({ type: Boolean }) noAutoLoadMdIcons = false;
 
   /**
    * Array of actions
@@ -96,7 +96,7 @@ export class NinjaKeys extends LitElement {
   /**
    * Show a modal
    */
-  open(options: {parent?: string} = {}) {
+  open(options: { parent?: string } = {}) {
     this._bump = true;
     this.visible = true;
     this._headerRef.value!.focusSearch();
@@ -104,6 +104,7 @@ export class NinjaKeys extends LitElement {
       this._selected = this._actionMatches[0];
     }
     this.setParent(options.parent);
+    this._unregisterNotKeepActionHotKeys()
   }
 
   /**
@@ -112,6 +113,7 @@ export class NinjaKeys extends LitElement {
   close() {
     this._bump = false;
     this.visible = false;
+    this._registerNotKeepActionHotKeys()
   }
 
   /**
@@ -178,7 +180,7 @@ export class NinjaKeys extends LitElement {
     super.connectedCallback();
 
     if (!this.noAutoLoadMdIcons) {
-      document.fonts.load('24px Material Icons', 'apps').then(() => {});
+      document.fonts.load('24px Material Icons', 'apps').then(() => { });
     }
 
     this._registerInternalHotkeys();
@@ -201,7 +203,7 @@ export class NinjaKeys extends LitElement {
           mem.children.some((value: any) => {
             return typeof value == 'string';
           });
-        const m = {...mem, parent: mem.parent || parent};
+        const m = { ...mem, parent: mem.parent || parent };
         if (alreadyFlatternByUser) {
           return m;
         } else {
@@ -328,6 +330,24 @@ export class NinjaKeys extends LitElement {
     }
   }
 
+  private _unregisterNotKeepActionHotKeys() {
+    this._flatData = this._flattern(this.data)
+    this._flatData
+      .filter((action) => !!action.hotkey && !action.keep)
+      .forEach((action) => hotkeys.unbind(action.hotkey!))
+  }
+  private _registerNotKeepActionHotKeys() {
+    this._flatData = this._flattern(this.data)
+    this._flatData
+      .filter((action) => !!action.hotkey && !action.keep)
+      .forEach((action) => hotkeys(action.hotkey!, (event) => {
+        event.preventDefault();
+        if (action.handler) {
+          action.handler(action);
+        }
+      }))
+  }
+
 
   private _actionFocused(index: INinjaAction, $event: MouseEvent) {
     // this.selectedIndex = index;
@@ -424,7 +444,7 @@ export class NinjaKeys extends LitElement {
             .breadcrumbs=${this.breadcrumbs}
             @change=${this._handleInput}
             @setParent=${(event: CustomEvent<INinjaAction>) =>
-              this.setParent(event.detail.parent)}
+        this.setParent(event.detail.parent)}
             @close=${this.close}
           >
           </ninja-header>
@@ -449,7 +469,7 @@ export class NinjaKeys extends LitElement {
     // so possible handle api search for example
     this.dispatchEvent(
       new CustomEvent('selected', {
-        detail: {search: this._search, action},
+        detail: { search: this._search, action },
         bubbles: true,
         composed: true,
       })
@@ -477,12 +497,12 @@ export class NinjaKeys extends LitElement {
     this._bump = true;
   }
 
-  private async _handleInput(event: CustomEvent<{search: string}>) {
+  private async _handleInput(event: CustomEvent<{ search: string }>) {
     this._search = event.detail.search;
     await this.updateComplete;
     this.dispatchEvent(
       new CustomEvent('change', {
-        detail: {search: this._search, actions: this._actionMatches},
+        detail: { search: this._search, actions: this._actionMatches },
         bubbles: true,
         composed: true,
       })

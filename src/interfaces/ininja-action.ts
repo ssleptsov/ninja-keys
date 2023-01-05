@@ -9,4 +9,5 @@ export interface INinjaAction {
   keywords?: string;
   children?: string[];
   section?: string;
+  keep?: boolean;
 }
