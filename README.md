@@ -127,12 +127,12 @@ Add the tag to your HTML.
   ];
 </script>
 ```
-Library using flat data structure inside, as in the example above. But you can also use a tree structure as below:
+In the example above, the library takes a flat data structure (an array). But you can also use a tree structure, as below:
 ```js
 {
   id: 'Theme',
   children: [
-    { id: 'light' title: 'light_mode', },
+    { id: 'light', title: 'light_mode', },
     { id: 'System Theme',
       children: [
         { title: 'Sub item 1' },
@@ -191,7 +191,7 @@ ninja.open({ parent: 'Theme' })
 ```
 
 ### Events
-Component wide events
+Component-wide events:
 
 | Name                               | Description                         | Payload |
 |------------------------------------|-------------------------------------| ------- |
@@ -220,7 +220,7 @@ ninja.addEventListener('selected', (event) => {
 ```
 
 ## Themes
-Component supports a dark theme out-of-box. You just need to add a class. 
+The component supports a dark theme out-of-box. You just need to add a class:
 ```html
 <ninja-keys class="dark"></ninja-keys>
 ```
@@ -229,7 +229,7 @@ If you need more style control, use any of the CSS variables below.
 ### CSS variables
 | Name                               | Default                            |
 |------------------------------------|------------------------------------|
-| --ninja-width                     | 640px;                              |
+| --ninja-width                      | 640px;                              |
 | --ninja-backdrop-filter            | none;                              |
 | --ninja-overflow-background        | rgba(255, 255, 255, 0.5);          |
 | --ninja-text-color                 |  rgb(60, 65, 73);                  |
@@ -241,13 +241,13 @@ If you need more style control, use any of the CSS variables below.
 | --ninja-secondary-text-color       |  rgb(107, 111, 118);               |
 | --ninja-selected-background        | rgb(248, 249, 251);                |
 | --ninja-icon-color                 | var(--ninja-secondary-text-color); |
-|     --ninja-icon-size         | 1.2em;                                             |
-|     --ninja-separate-border   | 1px solid var(--ninja-secondary-background-color); |
-|     --ninja-modal-background  | #fff;                                              |
-|     --ninja-modal-shadow      | rgb(0 0 0 / 50%) 0px 16px 70px;                    |
-|     --ninja-actions-height    | 300px;                                             |
-|     --ninja-group-text-color  |  rgb(144, 149, 157);                               |
-|     --ninja-footer-background | rgba(242, 242, 242, 0.4);                          |
+| --ninja-icon-size         | 1.2em;                                             |
+| --ninja-separate-border   | 1px solid var(--ninja-secondary-background-color); |
+| --ninja-modal-background  | #fff;                                              |
+| --ninja-modal-shadow      | rgb(0 0 0 / 50%) 0px 16px 70px;                    |
+| --ninja-actions-height    | 300px;                                             |
+| --ninja-group-text-color  |  rgb(144, 149, 157);                               |
+| --ninja-footer-background | rgba(242, 242, 242, 0.4);                          |
 | --ninja-placeholder-color | #8e8e8e |
 | --ninja-z-index | 1 |
 
@@ -267,7 +267,7 @@ It's supported by [all modern browsers](https://caniuse.com/mdn-css_selectors_pa
 | Name                               | Description                         |
 |------------------------------------|-------------------------------------|
 | actions-list                       | Element that wraps all child elements. |
-| ninja-action                       | Single action                       |
+| ninja-action                       | Single action                      |
 | ninja-selected                     | Selected action                    |
 | ninja-input                        | Input element                      |
 | ninja-input-wrapper                | Wrapper element around div, useful for advanced styles|
@@ -301,7 +301,7 @@ ninja-keys::part(ninja-input-wrapper) {
 ```
 
 ### Icons
-By default, components use icons from [https://fonts.google.com/icons](https://fonts.google.com/icons)
+By default, components use icons from [https://fonts.google.com/icons](https://fonts.google.com/icons).
 
 For example, you can just set `mdIcon` to `light_mode` to render a sun icon.
 
