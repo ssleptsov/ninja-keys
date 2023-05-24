@@ -20,7 +20,7 @@ export class NinjaHeader extends LitElement {
       background: transparent;
       caret-color: var(--ninja-accent-color);
       color: var(--ninja-text-color);
-      outline: none;
+      outline: transparent;
       font-family: var(--ninja-font-family);
     }
     .search::placeholder {
@@ -62,7 +62,23 @@ export class NinjaHeader extends LitElement {
   hideBreadcrumbs = false;
 
   @property()
-  breadcrumbHome = 'Home';
+  breadcrumbHome = "Home";
+
+  /** Maps to `aria-expanded` */
+  @property({type: Boolean})
+  expanded = false;
+
+  /** Maps to `aria-controls` */
+  @property()
+  controls = '';
+
+  /** Maps to `aria-label` on <input> */
+  @property()
+  searchLabel = '';
+
+  /** Maps to `aria-activedescendant` */
+  @property()
+  activeDescendant = ''
 
   @property({type: Array})
   breadcrumbs: string[] = [];
@@ -84,7 +100,7 @@ export class NinjaHeader extends LitElement {
           </button>`
         );
       }
-      breadcrumbs = html`<div class="breadcrumb-list">
+      breadcrumbs = html`<div class="breadcrumb-list" id="breadcrumb-list">
         <button
           tabindex="-1"
           @click=${() => this.selectParent()}
@@ -104,11 +120,18 @@ export class NinjaHeader extends LitElement {
           type="text"
           id="search"
           spellcheck="false"
-          autocomplete="off"
+          autocomplete="none"
           @input="${this._handleInput}"
           ${ref(this._inputRef)}
           placeholder="${this.placeholder}"
           class="search"
+          aria-label="${this.searchLabel}"
+          aria-expanded="${this.expanded}"
+          /* Should map to any elements that will get updated when this changes */
+          aria-controls="${this.controls} breadcrumb-list"
+          aria-autocomplete="list"
+          aria-activedescendant="${this.activeDescendant}"
+          role="combobox"
         />
       </div>
     `;
