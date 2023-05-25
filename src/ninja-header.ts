@@ -72,7 +72,7 @@ export class NinjaHeader extends LitElement {
   @property()
   controls = '';
 
-  /** Maps to `aria-label` on <input> */
+  /** Maps to `aria-labelledby` on <input> */
   @property()
   searchLabel = '';
 
@@ -125,14 +125,17 @@ export class NinjaHeader extends LitElement {
           ${ref(this._inputRef)}
           placeholder="${this.placeholder}"
           class="search"
-          aria-label="${this.searchLabel}"
+          aria-labelledby="search-label"
           aria-expanded="${this.expanded}"
-          /* Should map to any elements that will get updated when this changes */
           aria-controls="${this.controls} breadcrumb-list"
           aria-autocomplete="list"
           aria-activedescendant="${this.activeDescendant}"
           role="combobox"
         />
+
+        <slot name="search-label" id="search-label" class="visually-hidden">
+          <span>${this.searchLabel}</span>
+        </slot>
       </div>
     `;
   }

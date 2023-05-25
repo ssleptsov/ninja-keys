@@ -1,7 +1,18 @@
 import {css} from 'lit';
 
 export const baseStyles = css`
+  :host *,
+  :host *::before,
+  :host *::after {
+    box-sizing: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
   :host {
+    box-sizing: border-box;
+
     --ninja-width: 640px;
     --ninja-backdrop-filter: none;
     --ninja-overflow-background: rgba(255, 255, 255, 0.5);
@@ -180,5 +191,17 @@ export const baseStyles = css`
   }
   .ninja-examplekey.backspace {
     opacity: 0.7;
+  }
+
+  .visually-hidden:not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    padding: 0 !important;
   }
 `;

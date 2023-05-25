@@ -28,7 +28,10 @@ export class NinjaKeys extends LitElement {
    */
   @property({type: Boolean}) disableHotkeys = false;
 
+  /** Maps to `aria-labelledby` for search input */
   @property({attribute: "search-label"}) searchLabel = "Search for actions"
+
+  /** Maps to `aria-labelledby` for listbox */
   @property({attribute: "listbox-label"}) listboxLabel = "List of actions"
 
   /**
@@ -473,10 +476,14 @@ export class NinjaKeys extends LitElement {
               class="actions-list"
               role="listbox"
               part="actions-list"
-              aria-label="${this.listboxLabel}"
+              aria-labelledby="listbox-label"
             >
               ${itemTemplates}
             </div>
+
+            <slot id="listbox-label" name="listbox-label" class="visually-hidden">
+              <span>${this.listboxLabel}</span>
+            </slot>
           </div>
           <slot name="footer"> ${footerHtml} </slot>
         </div>
