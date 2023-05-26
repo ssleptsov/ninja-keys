@@ -1,7 +1,32 @@
 import {css} from 'lit';
 
+export const visuallyHidden = css`
+  .visually-hidden:not(:focus-within) {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    padding: 0 !important;
+  }
+`
+
 export const baseStyles = css`
+  :host *,
+  :host *::before,
+  :host *::after {
+    box-sizing: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
   :host {
+    box-sizing: border-box;
+
     --ninja-width: 640px;
     --ninja-backdrop-filter: none;
     --ninja-overflow-background: rgba(255, 255, 255, 0.5);
@@ -133,10 +158,10 @@ export const baseStyles = css`
   }
 
   .group-header {
-    height: 1.375em;
     line-height: 1.375em;
     padding-left: 1.25em;
     padding-top: 0.5em;
+    padding-bottom: 0.5em;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -181,4 +206,5 @@ export const baseStyles = css`
   .ninja-examplekey.backspace {
     opacity: 0.7;
   }
+
 `;

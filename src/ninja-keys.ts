@@ -12,11 +12,11 @@ import {INinjaAction} from './interfaces/ininja-action.js';
 import {NinjaHeader} from './ninja-header.js';
 import {NinjaAction} from './ninja-action.js';
 import {footerHtml} from './ninja-footer.js';
-import {baseStyles} from './base-styles.js';
+import {baseStyles,visuallyHidden} from './base-styles.js';
 
 @customElement('ninja-keys')
 export class NinjaKeys extends LitElement {
-  static override styles = [baseStyles];
+  static override styles = [visuallyHidden, baseStyles];
 
   /**
    * Search placeholder text
@@ -27,6 +27,12 @@ export class NinjaKeys extends LitElement {
    * If true will register all hotkey for all actions
    */
   @property({type: Boolean}) disableHotkeys = false;
+
+  /** Maps to `aria-labelledby` for search input */
+  @property({attribute: "search-label"}) searchLabel = "Search for actions"
+
+  /** Maps to `aria-labelledby` for listbox */
+  @property({attribute: "listbox-label"}) listboxLabel = "List of actions"
 
   /**
    * Show or hide breadcrumbs on header
@@ -99,9 +105,21 @@ export class NinjaKeys extends LitElement {
   open(options: {parent?: string} = {}) {
     this._bump = true;
     this.visible = true;
-    this._headerRef.value!.focusSearch();
+    const header = this._headerRef.value
+    if (header) {
+      header.focusSearch();
+      header.expanded = true
+      header.controls = "actions-list"
+    }
+
+
     if (this._actionMatches.length > 0) {
       this._selected = this._actionMatches[0];
+
+      const header = this._headerRef.value
+      if (header && this._selected) {
+        header.activeDescendant = this._selected.id
+      }
     }
     this.setParent(options.parent);
   }
@@ -112,6 +130,11 @@ export class NinjaKeys extends LitElement {
   close() {
     this._bump = false;
     this.visible = false;
+
+    const header = this._headerRef.value
+    if (header) {
+      header.expanded = false
+    }
   }
 
   /**
@@ -171,8 +194,24 @@ export class NinjaKeys extends LitElement {
     return path.reverse();
   }
 
+  private __selected__?: null | undefined | INinjaAction
+  /**
+   * @private
+   */
   @state()
-  private _selected?: INinjaAction;
+  get _selected (): null | undefined | INinjaAction {
+    return this.__selected__
+  }
+
+  set _selected(action: null | undefined | INinjaAction) {
+    const header = this._headerRef.value
+    if (header && action) {
+      header.activeDescendant = action.id
+    }
+    const prevSelection = this.__selected__
+    this.__selected__ = action
+    this.requestUpdate("_selected", prevSelection)
+  }
 
   override connectedCallback() {
     super.connectedCallback();
@@ -394,7 +433,9 @@ export class NinjaKeys extends LitElement {
         (action) => action.id,
         (action) =>
           html`<ninja-action
+            role="option"
             exportparts="ninja-action,ninja-selected,ninja-icon"
+            aria-selected=${live(action.id === this._selected?.id)}
             .selected=${live(action.id === this._selected?.id)}
             .hotKeysJoinedView=${this.hotKeysJoinedView}
             @mouseover=${(event: MouseEvent) =>
@@ -422,6 +463,7 @@ export class NinjaKeys extends LitElement {
             .placeholder=${this.placeholder}
             .hideBreadcrumbs=${this.hideBreadcrumbs}
             .breadcrumbs=${this.breadcrumbs}
+            searchLabel=${this.searchLabel}
             @change=${this._handleInput}
             @setParent=${(event: CustomEvent<INinjaAction>) =>
               this.setParent(event.detail.parent)}
@@ -429,7 +471,21 @@ export class NinjaKeys extends LitElement {
           >
           </ninja-header>
           <div class="modal-body">
-            <div class="actions-list" part="actions-list">${itemTemplates}</div>
+            <div
+              id="actions-list"
+              class="actions-list"
+              role="listbox"
+              part="actions-list"
+              aria-labelledby="listbox-label"
+            >
+              ${itemTemplates}
+            </div>
+
+            <div class="visually-hidden">
+              <slot id="listbox-label" name="listbox-label">
+                <span>${this.listboxLabel}</span>
+              </slot>
+            </div>
           </div>
           <slot name="footer"> ${footerHtml} </slot>
         </div>

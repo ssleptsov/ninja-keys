@@ -1,10 +1,11 @@
 import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {ref, createRef} from 'lit/directives/ref.js';
+import { visuallyHidden } from './base-styles';
 
 @customElement('ninja-header')
 export class NinjaHeader extends LitElement {
-  static override styles = css`
+  static override styles = [visuallyHidden, css`
     :host {
       flex: 1;
       position: relative;
@@ -20,7 +21,7 @@ export class NinjaHeader extends LitElement {
       background: transparent;
       caret-color: var(--ninja-accent-color);
       color: var(--ninja-text-color);
-      outline: none;
+      outline: transparent;
       font-family: var(--ninja-font-family);
     }
     .search::placeholder {
@@ -53,7 +54,7 @@ export class NinjaHeader extends LitElement {
       display: flex;
       border-bottom: var(--ninja-separate-border);
     }
-  `;
+  `];
 
   @property()
   placeholder = '';
@@ -62,7 +63,23 @@ export class NinjaHeader extends LitElement {
   hideBreadcrumbs = false;
 
   @property()
-  breadcrumbHome = 'Home';
+  breadcrumbHome = "Home";
+
+  /** Maps to `aria-expanded` */
+  @property({type: Boolean})
+  expanded = false;
+
+  /** Maps to `aria-controls` */
+  @property()
+  controls = '';
+
+  /** Maps to `aria-labelledby` on <input> */
+  @property()
+  searchLabel = '';
+
+  /** Maps to `aria-activedescendant` */
+  @property()
+  activeDescendant = ''
 
   @property({type: Array})
   breadcrumbs: string[] = [];
@@ -84,7 +101,7 @@ export class NinjaHeader extends LitElement {
           </button>`
         );
       }
-      breadcrumbs = html`<div class="breadcrumb-list">
+      breadcrumbs = html`<div class="breadcrumb-list" id="breadcrumb-list">
         <button
           tabindex="-1"
           @click=${() => this.selectParent()}
@@ -104,12 +121,24 @@ export class NinjaHeader extends LitElement {
           type="text"
           id="search"
           spellcheck="false"
-          autocomplete="off"
+          autocomplete="none"
           @input="${this._handleInput}"
           ${ref(this._inputRef)}
           placeholder="${this.placeholder}"
           class="search"
+          aria-labelledby="search-label"
+          aria-expanded="${this.expanded}"
+          aria-controls="${this.controls} breadcrumb-list"
+          aria-autocomplete="list"
+          aria-activedescendant="${this.activeDescendant}"
+          role="combobox"
         />
+
+        <div class="visually-hidden">
+          <slot name="search-label" id="search-label">
+            <span>${this.searchLabel}</span>
+          </slot>
+        </div>
       </div>
     `;
   }
