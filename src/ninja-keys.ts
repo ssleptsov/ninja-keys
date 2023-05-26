@@ -12,11 +12,11 @@ import {INinjaAction} from './interfaces/ininja-action.js';
 import {NinjaHeader} from './ninja-header.js';
 import {NinjaAction} from './ninja-action.js';
 import {footerHtml} from './ninja-footer.js';
-import {baseStyles} from './base-styles.js';
+import {baseStyles,visuallyHidden} from './base-styles.js';
 
 @customElement('ninja-keys')
 export class NinjaKeys extends LitElement {
-  static override styles = [baseStyles];
+  static override styles = [visuallyHidden, baseStyles];
 
   /**
    * Search placeholder text
@@ -481,9 +481,11 @@ export class NinjaKeys extends LitElement {
               ${itemTemplates}
             </div>
 
-            <slot id="listbox-label" name="listbox-label" class="visually-hidden">
-              <span>${this.listboxLabel}</span>
-            </slot>
+            <div class="visually-hidden">
+              <slot id="listbox-label" name="listbox-label">
+                <span>${this.listboxLabel}</span>
+              </slot>
+            </div>
           </div>
           <slot name="footer"> ${footerHtml} </slot>
         </div>

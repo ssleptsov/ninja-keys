@@ -1,10 +1,11 @@
 import {LitElement, html, css, TemplateResult} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import {ref, createRef} from 'lit/directives/ref.js';
+import { visuallyHidden } from './base-styles';
 
 @customElement('ninja-header')
 export class NinjaHeader extends LitElement {
-  static override styles = css`
+  static override styles = [visuallyHidden, css`
     :host {
       flex: 1;
       position: relative;
@@ -53,7 +54,7 @@ export class NinjaHeader extends LitElement {
       display: flex;
       border-bottom: var(--ninja-separate-border);
     }
-  `;
+  `];
 
   @property()
   placeholder = '';
@@ -133,9 +134,11 @@ export class NinjaHeader extends LitElement {
           role="combobox"
         />
 
-        <slot name="search-label" id="search-label" class="visually-hidden">
-          <span>${this.searchLabel}</span>
-        </slot>
+        <div class="visually-hidden">
+          <slot name="search-label" id="search-label">
+            <span>${this.searchLabel}</span>
+          </slot>
+        </div>
       </div>
     `;
   }
