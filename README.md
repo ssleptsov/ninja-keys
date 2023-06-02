@@ -31,6 +31,7 @@ so I decided to give it a try for [Web Components](https://open-wc.org/) and [Li
 - [Static Html - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-html-cf9wy?file=/index.html)
 - [Svelte - Codesandbox](https://codesandbox.io/s/ninja-keys-demo-svelte-r31l8)
 - [SolidJS wrapper](https://github.com/wobsoriano/solid-ninja-keys)
+- [Ruby on Rails Example - Video](https://www.youtube.com/watch?v=9pHxFkQ0JhU)
 
 ## Features
 - Keyboard navigation
