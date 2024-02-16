@@ -197,6 +197,7 @@ Component wide events
 |------------------------------------|-------------------------------------| ------- |
 | `change`                         | Emitted when on each change of search input | `{ detail: { search: string, actions: Array<NinjaAction> } }` |
 | `selected`                       | Emitted when on user selected action or on submit of input | `{ detail: { search: string, action: NinjaAction or undefined }}` |
+| `closed`                       | Emitted when on user closed the menu |  |
 
 Both `handler` of action and component event `selected` emitted when user submit form or select item.
 

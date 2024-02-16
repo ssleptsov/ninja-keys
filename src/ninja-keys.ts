@@ -112,6 +112,8 @@ export class NinjaKeys extends LitElement {
   close() {
     this._bump = false;
     this.visible = false;
+    // Dispatch close event
+    this.dispatchEvent(new CustomEvent('closed', {bubbles: true, composed: true}));
   }
 
   /**
