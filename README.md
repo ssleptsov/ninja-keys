@@ -92,6 +92,16 @@ Add the tag to your HTML.
       },
     },
     {
+      id: 'Users',
+      title: 'Go to user profile',
+      icon: 'person',
+      matcher: (searchQuery) => searchQuery.match(/.+@.+/),
+      handler: (action, searchQuery) => {
+        // simple handler
+        alert(`Visiting user profile: ${searchQuery}`);
+      },
+    },
+    {
       id: 'Theme',
       title: 'Change theme...',
       icon: 'desktop_windows',
@@ -169,6 +179,7 @@ Array of `INinjaAction` - interface properties below
 | title    | string                  | Title of action                                                                        |
 | hotkey   | string(optional)        | Shortcut to display and register                                                       |
 | handler  | Function(optional)      | Function to execute on select                                                          |
+| matcher  | Function(optional)      | Function to execute on search. Return true if action should be displayed               |
 | mdIcon   | string(optional)        | Material Design font icon name                                                         |
 | icon     | string(optional)        | Html to render as custom icon                                                          |
 | parent   | string(optional)        | If using flat structure use id of actions to make a multilevel menu                    |

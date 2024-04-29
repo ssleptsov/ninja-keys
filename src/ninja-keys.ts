@@ -362,8 +362,13 @@ export class NinjaKeys extends LitElement {
 
     const actionMatches = this._flatData.filter((action) => {
       const regex = new RegExp(this._search, 'gi');
-      const matcher =
-        action.title.match(regex) || action.keywords?.match(regex);
+      let matcher;
+      if (action.matcher) {
+        matcher = action.matcher(this._search);
+      }
+      else {
+        matcher = action.title.match(regex) || action.keywords?.match(regex);
+      }
 
       if (!this._currentRoot && this._search) {
         // global search for items on root
@@ -468,7 +473,7 @@ export class NinjaKeys extends LitElement {
     this._headerRef.value!.focusSearch();
 
     if (action.handler) {
-      const result = action.handler(action);
+      const result = action.handler(action, this._search);
       if (!result?.keepOpen) {
         this.close();
       }

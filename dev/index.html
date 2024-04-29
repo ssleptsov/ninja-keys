@@ -110,6 +110,16 @@
       },
       //
       {
+        id: 'Go to User',
+        title: 'Go to user profile',
+        mdIcon: 'person',
+        matcher: (searchQuery) => searchQuery.match(/.+@.+/),
+        handler: (action, searchQuery) => {
+          alert(`Visiting user profile: ${searchQuery}`);
+        },
+      },
+      //
+      {
         id: 'Theme',
         title: 'Change theme...',
         mdIcon: 'desktop_windows',

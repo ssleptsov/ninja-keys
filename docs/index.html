@@ -151,6 +151,16 @@
           },
         },
         {
+          id: 'Users',
+          title: 'Visit user profile',
+          mdIcon: 'person',
+          matcher: (searchQuery) => searchQuery.match(/.+@.+/),
+          handler: (action, searchQuery) => {
+            // simple handler
+            alert(`Visiting user profile: ${searchQuery}`);
+          },
+        },
+        {
           id: 'Theme',
           title: 'Change theme...',
           mdIcon: 'desktop_windows',

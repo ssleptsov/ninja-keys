@@ -1,5 +1,10 @@
 # Change Log
 
+## Unreleased
+
+- Add passing the search query to the action handler for dynamic handling
+
+- Add a `matcher` property to actions to allow dynamic matching
 
 ## 1.2.0 (2022-04-21)
 
