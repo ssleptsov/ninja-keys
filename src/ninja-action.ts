@@ -66,7 +66,6 @@ export class NinjaAction extends LitElement {
       background: var(--ninja-secondary-background-color);
       padding: 0.06em 0.25em;
       border-radius: var(--ninja-key-border-radius);
-      text-transform: capitalize;
       color: var(--ninja-secondary-text-color);
       font-size: 0.75em;
       font-family: inherit;
