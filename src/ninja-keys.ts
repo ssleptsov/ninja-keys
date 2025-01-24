@@ -24,6 +24,11 @@ export class NinjaKeys extends LitElement {
   @property({type: String}) placeholder = 'Type a command or search...';
 
   /**
+   * First breadcrumb item
+   */
+    @property({type: String}) breadcrumbHome = 'Home';
+
+  /**
    * If true will register all hotkey for all actions
    */
   @property({type: Boolean}) disableHotkeys = false;
@@ -419,6 +424,7 @@ export class NinjaKeys extends LitElement {
           <ninja-header
             exportparts="ninja-input,ninja-input-wrapper"
             ${ref(this._headerRef)}
+            .breadcrumbHome=${this.breadcrumbHome}
             .placeholder=${this.placeholder}
             .hideBreadcrumbs=${this.hideBreadcrumbs}
             .breadcrumbs=${this.breadcrumbs}

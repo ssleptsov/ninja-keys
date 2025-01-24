@@ -146,12 +146,13 @@ Library using flat data structure inside, as in the example above. But you can a
 | Field                | Default                     | Description                                                 |
 |----------------------|-----------------------------|-------------------------------------------------------------|
 | placeholder          | Type a command or search... | Placeholder for search                                      |
+| breadcrumbHome       | Home                        | Text of root breadcrumb item                                |
 | disableHotkeys       | false                       | If attribute exist will register all hotkey for all actions |
 | hideBreadcrumbs      | false                       | Hide breadcrumbs on header if true                          |
 | openHotkey           | cmd+k,ctrl+k                | Open or close shortcut                                      |
 | navigationUpHotkey   | up,shift+tab                | Navigation up shortcuts                                     |
 | navigationDownHotkey | down,tab                    | Navigation down shortcuts                                   |
-| closeHotkey          | esc                         | Close shortcut                                               |
+| closeHotkey          | esc                         | Close shortcut                                              |
 | goBackHotkey         | backspace                   | Go back on one level if has parent menu                     |
 | selectHotkey         | enter                       | Select action and execute handler or open submenu           |
 | hotKeysJoinedView    | false                       | If exist/true will display hotkeys inside one element       |

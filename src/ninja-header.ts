@@ -55,14 +55,14 @@ export class NinjaHeader extends LitElement {
     }
   `;
 
-  @property()
+  @property({type: String})
   placeholder = '';
 
   @property({type: Boolean})
   hideBreadcrumbs = false;
 
-  @property()
-  breadcrumbHome = 'Home';
+  @property({type: String})
+  breadcrumbHome = '';
 
   @property({type: Array})
   breadcrumbs: string[] = [];
@@ -84,16 +84,23 @@ export class NinjaHeader extends LitElement {
           </button>`
         );
       }
-      breadcrumbs = html`<div class="breadcrumb-list">
-        <button
-          tabindex="-1"
-          @click=${() => this.selectParent()}
-          class="breadcrumb"
-        >
-          ${this.breadcrumbHome}
-        </button>
-        ${itemTemplates}
-      </div>`;
+
+      if(this.breadcrumbHome || itemTemplates.length > 0) {
+        const breadcrumbHome = this.breadcrumbHome && html`
+          <button
+            tabindex="-1"
+            @click=${() => this.selectParent()}
+            class="breadcrumb"
+          >
+            ${this.breadcrumbHome}
+          </button>
+        `;
+
+        breadcrumbs = html`<div class="breadcrumb-list">
+          ${breadcrumbHome}
+          ${itemTemplates}
+        </div>`;
+      }
     }
 
     return html`
